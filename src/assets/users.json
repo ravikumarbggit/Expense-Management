@@ -1,12 +1,16 @@
 [
     {
+        "id":1,
         "username":"ravi",
         "password":"ravi",
-        "Name": "Ravi"
+        "name": "Ravi",
+        "currency": "$"
     },
     {
+        "id": 2,
         "username":"test",
         "password":"test",
-        "Name": "Tester"
+        "name": "Tester",
+        "currency": "$"
     }
 ]

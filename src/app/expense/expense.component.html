@@ -35,7 +35,7 @@
         <label>Amount</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
-            <input matInput formControlName="amount" pattern="[0-9]*">
+            <input matInput formControlName="amount" type="number">
           </mat-form-field>
 
         </div>
@@ -50,21 +50,12 @@
               <mat-option *ngFor="let ccy of currencies" [value]="ccy.symbol">
                 {{ccy.text}} - {{ccy.symbol}}
               </mat-option>
-              <!-- <mat-option value="'INR'">
-                INR
-              </mat-option>
-              <mat-option value="'USD'">
-                USD
-              </mat-option> -->
             </mat-select>
           </mat-form-field>
         </div>
       </div>
     </div>
-    <!-- </div>
-
-    <div fxLayout="row" fxLayoutGap="20" fxLayoutAlign="space-between center" fxLayout.lt-md="column"> -->
-
+  
     <div fxFlex="34">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
         <label>Date</label>
@@ -93,15 +84,6 @@
               <mat-option *ngFor="let expCat of expenseCategories" [value] = "expCat">
                 {{expCat}}
               </mat-option>
-              <!-- <mat-option value="Personal">
-                Peronal
-              </mat-option>
-              <mat-option value="Business">
-                Business
-              </mat-option>
-              <mat-option value="Miscellaneous">
-                Miscellaneous
-              </mat-option> -->
             </mat-select>
           </mat-form-field>
 
@@ -111,7 +93,6 @@
 
     <div fxFlex="20" class="field">
       <div>
-        <!-- <button mat-raised-button color="accent">Attach Receipt</button> -->
         <div fxLayout="column" fxLayoutAlign="center start" class="field">
           <button mat-raised-button type="button" (click)="fileInput.click()" color="accent">Attach Receipt</button>
           <input #fileInput type="file" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps,.doc,.docx," multiple style="display: none">

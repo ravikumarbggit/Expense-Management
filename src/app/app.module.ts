@@ -18,10 +18,10 @@ import { DateFormat } from './date-format';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
-import { HammerCardComponent } from './hammer-card/hammer-card.component';
 import { ExpenseComponent } from './expense/expense.component';
 import {MatSelectModule} from '@angular/material/select';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -32,10 +32,8 @@ import { AlertDialog } from './utils/alert-dialog';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
-import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { AboutComponent } from './about/about.component';
 import { SignupComponent } from './signup/signup.component';
-import { HomeHeaderComponent } from './home-header/home-header.component';
 import { ExpenseItemComponent } from './expense-item/expense-item.component';
 import { ExpenseViewComponent } from './expense-view/expense-view.component';
 
@@ -43,17 +41,14 @@ import { ExpenseViewComponent } from './expense-view/expense-view.component';
   declarations: [
     AppComponent,
     ExpenseListComponent,
-    HammerCardComponent,
     ExpenseComponent,
     NotFoundComponent,
     HeaderComponent,
     ConfirmationDialog,
     AlertDialog,
     LoginComponent,
-    AppLayoutComponent,
     AboutComponent,
     SignupComponent,
-    HomeHeaderComponent,
     ExpenseItemComponent,
     ExpenseViewComponent,
   ],
@@ -65,7 +60,6 @@ import { ExpenseViewComponent } from './expense-view/expense-view.component';
     MatCardModule,
     MatButtonModule,
     FlexLayoutModule,  
-    // MatTableModule,
     MatCheckboxModule,
     MatIconModule,
     FormsModule, 
@@ -80,6 +74,7 @@ import { ExpenseViewComponent } from './expense-view/expense-view.component';
     MatSidenavModule,
     MatSnackBarModule,
     DragDropModule,
+    MatMenuModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: DateFormat },

@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { AppSettings } from '../app-settings';
 import { Router } from '@angular/router';
+import { ExpenseDataService } from '../service/expense-data.service';
+import { Expense } from '../data-model/expense.model';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
   loginStatusMessage: string;
   constructor(private fb: FormBuilder
     , private authService: AuthService
-    , private router: Router) { }
+    , private router: Router
+    , private expenseDataService: ExpenseDataService) { }
 
   ngOnInit() {
 
@@ -60,7 +63,13 @@ export class LoginComponent implements OnInit {
         }
         console.log('login success');
         this.authService.setLoggedIn(true);
-        this.router.navigate(['/']);         
+        this.expenseDataService.getJSON().subscribe(expense => {
+          let userExpenses: Expense[] = expense.filter(r => r.userId === response.id );
+          console.log('userExpenses: ',userExpenses);
+          this.expenseDataService.pushExpenses(userExpenses);
+          this.router.navigate(['/']);        
+        });
+         
       }
       else{
         console.log("Incorrect credentials...")

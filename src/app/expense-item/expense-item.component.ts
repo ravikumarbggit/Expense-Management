@@ -21,7 +21,7 @@ export class ExpenseItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('in HammerCardComponent ', this.expense);
+    console.log('in ExpenseItemComponent ', this.expense);
     this.selected.patchValue(this.expense.isSelected);
     this.selected.valueChanges
     .subscribe(value => {

@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { User } from '../data-model/user.model';
+import { UsersService } from '../service/users.service';
 
 @Component({
   selector: 'app-expense',
@@ -30,18 +32,22 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   expenses: Expense[] = [];
   onDestroy: Subject<boolean> = new Subject();
   private paramSub: Subscription;
+  currentUser: User;
 
   constructor(private fb: FormBuilder
     , private expenseDataService: ExpenseDataService
     , public snackBar: MatSnackBar
     , private route: ActivatedRoute
-    , private router: Router) { }
+    , private router: Router
+    , private userService: UsersService) { }
 
   ngOnInit() {
 
-
+    this.currentUser = this.userService.getCurrentUser();
     this.getExpenses();
 
+
+    console.log('this.currentUser: ',this.currentUser);
   }
 
   ngOnDestroy() {
@@ -55,10 +61,11 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
     let data: Expense = {
       id: null,
+      userId: null,
       date: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
       expenseHead: null,
       amount: null,
-      currency: "₹",
+      currency: this.currentUser ? this.currentUser.currency : null,
       expenseCategory: null,
       isRecurring: null,
       isSelected: null,
@@ -73,6 +80,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
     const formGroup = this.fb.group({
       id: [data.id],
+      userId: [data.userId],
       date: [this.datePipe.transform(data.date, 'yyyy-MM-dd'), Validators.required],
       expenseHead: [data.expenseHead, Validators.required],
       amount: [data.amount, [Validators.required, Validators.pattern(/^[.\d]+$/)]],
@@ -87,7 +95,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   }
 
   getExpenses() {
-    this.expenseDataService.expenseData
+    this.expenseDataService.getExpenses()
       .subscribe(response => {
         this.expenses = response;
         if (this.expenses)

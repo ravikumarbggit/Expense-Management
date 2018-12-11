@@ -27,7 +27,6 @@
         <mat-card-content>
 
 
-
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
               <img  src="assets/images/perfecto-logo.png" height="45">
               <h4>Expense Tracker</h4>
@@ -62,6 +61,31 @@
             </div>
           </div>
 
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>Confirm Password</label>
+            <div>
+              <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
+                <input matInput type="password" [formControl]="confirmPassword" autocomplete="off" (keyup.enter)="submit(signupForm.value)">
+                <mat-hint align="end">{{signupForm.get('password').value?.length || 0}}</mat-hint>
+                <mat-error *ngIf="!confirmPassword.valid">Not matching with password!</mat-error>
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>Currency</label>
+            <div>
+              <mat-form-field appearance="outline" color="accent">
+                <mat-select formControlName="currency">
+                  <mat-option *ngFor="let ccy of currencies" [value]="ccy.symbol">
+                    {{ccy.text}} - {{ccy.symbol}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          
         </mat-card-content>
         <mat-card-actions>
           <div fxLayout="row" fxLayoutAlign="center center">

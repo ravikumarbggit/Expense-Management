@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { AppSettings } from '../app-settings';
 import { User } from '../data-model/user.model';
 import { UsersService } from '../service/users.service';
+import { ExpenseDataService } from '../service/expense-data.service';
 
 
 @Injectable()
@@ -17,7 +18,8 @@ export class AuthService {
   
   constructor(private router: Router,
     private http: HttpClient, 
-    private usersService: UsersService) {
+    private usersService: UsersService,
+    private expenseDataService: ExpenseDataService) {
 
 
   }
@@ -25,6 +27,8 @@ export class AuthService {
   isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
+
+
 
 
   private tokenAvailable(): boolean {
@@ -77,6 +81,7 @@ export class AuthService {
 
   clearUserSpecificItems() {
     localStorage.removeItem(AppSettings.LOCAL_STORAGE_CURRENT_USER);
+    this.expenseDataService.pushExpenses([]);
   }
 
 

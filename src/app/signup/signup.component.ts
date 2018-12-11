@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { User } from '../data-model/user.model';
 import { UsersService } from '../service/users.service';
 import { take } from 'rxjs/operators';
@@ -15,6 +15,17 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
   existingUsers: User[] = [];
+  confirmPassword = new FormControl('');
+
+  currencies = [{
+    symbol: "₹",
+    text: "INR"
+  }, 
+  {
+    symbol: "$",
+    text: "USD"
+  }];
+
   constructor(private fb: FormBuilder
   ,private usersService: UsersService
   , public snackBar: MatSnackBar
@@ -23,13 +34,26 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.getExistingUsers();
+
+    this.confirmPassword.valueChanges
+    .subscribe(val => {
+      if(val !== this.signupForm.get('password').value){
+        //this.signupForm.controls['password'].setErrors({'incorrect': true});
+        this.confirmPassword.setErrors({'incorrect': true})
+      }else{
+        // this.signupForm.controls['password'].setErrors(null);
+        this.confirmPassword.setErrors(null)
+      }
+    })
   }
 
   initForm(){
     let user: User = {
+      id: null,
       name: null,
       username: null,
       password: null,
+      currency: null,
     }
 
     this.signupForm = this.toFormGroup(user);
@@ -40,9 +64,11 @@ export class SignupComponent implements OnInit {
 
 
     return this.fb.group({
+      id: [data.id],
       name: [data.name,  Validators.compose([Validators.required, Validators.minLength(5)])],
       username: [data.username, Validators.compose([Validators.required, Validators.minLength(5)])],
-      password: [data.password, Validators.compose([Validators.required, Validators.minLength(5)])]
+      password: [data.password, Validators.compose([Validators.required, Validators.minLength(5)])],
+      currency: [data.currency]
     })
 
   }
@@ -59,6 +85,12 @@ export class SignupComponent implements OnInit {
   }
 
   submit(model: User){
+
+
+    if (!model.id) {
+      let id: number = this.existingUsers.length > 0 ? Math.max.apply(Math, this.existingUsers.map(function (o) { return o.id; })) + 1 : 1;
+      model.id = id;
+    }
     console.log('model: ', model);
     this.existingUsers.push(model);
     this.usersService.pushUsers(this.existingUsers);

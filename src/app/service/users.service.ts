@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { User } from "../data-model/user.model";
 import { HttpClient } from '@angular/common/http';
+import { AppSettings } from "../app-settings";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,19 @@ import { HttpClient } from '@angular/common/http';
     constructor(private http: HttpClient) {
   
     }
-  
+    
+    getCurrentUser(): User {
+
+      let localUser = JSON.parse(localStorage.getItem(AppSettings.LOCAL_STORAGE_CURRENT_USER));
+
+      if(localUser){
+        return localUser.user;
+      }
+      else{
+        return null;
+      }
+      // return JSON.parse(localStorage.getItem(AppSettings.LOCAL_STORAGE_CURRENT_USER)).user;
+    }
   
     pushUsers(inData: User[])  {
       console.log("inside push data", inData)

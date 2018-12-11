@@ -32,12 +32,16 @@ export class ExpenseListComponent implements OnInit {
     , public snackBar: MatSnackBar
     , private dialog: MatDialog
     , private router: Router
-    ,private sideNavService: SidenavService) { }
+    ,private sideNavService: SidenavService) { 
+
+
+
+    }
 
   ngOnInit() {
     //this.expense$ = this.expenseDataService.getJSON();
     //this.expense$ = this.expenseDataService.getExpenses();
-    this.expenseDataService.expenseData.subscribe(response => {
+    this.expenseDataService.getExpenses().subscribe(response => {
       this.expenses = response;
       if (this.expenses) {
         this.expenses.forEach(exp => {
@@ -56,7 +60,6 @@ export class ExpenseListComponent implements OnInit {
           this.expenses.push(exp);
         });
         this.changeCounter++;
-        //this.expenses = tempExpenses;
       }
       )
 
@@ -72,11 +75,6 @@ export class ExpenseListComponent implements OnInit {
   }
 
   deleteExpense(id: number) {
-
-    // const index: number = this.expenses.indexOf(id);
-    // if (index !== -1) {
-    //     this.expenses.splice(index, 1);
-    // }  
 
     let deleteExpense: Expense = this.expenses.find(exp => exp.id === id);
     this.expenses = this.expenses.filter(item => item != deleteExpense);
@@ -153,31 +151,12 @@ export class ExpenseListComponent implements OnInit {
 
   }
 
-  // startMove(i: number) {
-  //   console.log('startMove ', i);
-  //   this.visible[i] = true;
-  // }
 
-  // stopMove(i: number){
-  //   this.visible[i] = false;
-  // }
-
-  // isVisible(i: number): boolean {
-  //   return this.visible[i];
-  // }
-
-  // dropEdit(event: CdkDragDrop<string[]>) {
-  //   console.log("dropEdit: ",event, event.previousIndex);
-  //   console.log("dropEdit: ",this.expenses[event.previousIndex])
-    
-
-  // }
 
   dragEnded(event: any, i: number){
     console.log('ended: ', event);
     
-    // console.log('ended: ', event.source._activeTransform.x);
-    // console.log('ended: ', event.source.element.nativeElement.clientWidth);
+
 
     if(event.source._activeTransform.x < 0 && Math.abs(event.source._activeTransform.x) > event.source.element.nativeElement.clientWidth/2 ){
       console.log("DELETE NOW");
@@ -191,30 +170,10 @@ export class ExpenseListComponent implements OnInit {
       event.source.element.nativeElement.style.transform = 'none' // visually reset element to its origin
       const source: any = event.source
       source._passiveTransform = { x: 0, y: 0 } // make it so new drag starts from same origin
-      // source._activeTransform = { x: 0, y: 0 } // make it so new drag starts from same origin
-      // event.reset()
+
     }
 
    
   }
 
-  // dragStarted(event: any){
-  //   console.log('started: ', event.source);
-  //   console.log('started: ', event.source._pickupPositionInElement.x);
-  //   console.log('started: ', event.source._activeTransform.x);
-
-
-  //   if(event.source._activeTransform.x > 0){
-  //     this.displayEditButton = true;
-  //     // this.displayDeleteButton = false;
-  //   }else{
-  //     this.displayEditButton = false;
-  //     // this.displayDeleteButton = true;
-  //   }
-  // }
-
-
-  // openView(id: number){
-  //   this.router.navigate(['app-expense-view', id]);
-  // }
 }

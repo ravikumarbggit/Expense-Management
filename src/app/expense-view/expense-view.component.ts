@@ -42,15 +42,7 @@ export class ExpenseViewComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         console.log("params['id']: " + params['id']);
         if (params['id']) {
-          // this.expenseDataService.getJSON()
-          // .subscribe(response => {
-          //   console.log('response: ', response);
-          //   if(response){
-          //     this.expense = response.find(exp => exp.id === +params['id'] )
-          //     console.log('found expense: ', this.expense);
-          //   }
-          // })
-          this.expenseDataService.expenseData
+          this.expenseDataService.getExpenses()
           .subscribe(response => {
               console.log('response: ', response);
               if(response){
@@ -58,9 +50,6 @@ export class ExpenseViewComponent implements OnInit, OnDestroy {
                 console.log('found expense: ', this.expense);
               }
             })
-        }
-        else {
-          
         }
 
       });
