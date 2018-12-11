@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "date":"2018-11-20",
+        "expenseHead": "Meals",
+        "amount": 2000.00,
+        "currency": "₹",
+        "expenseCategory": ["Miscellaneous"],
+        "isRecurring": true        
+    },
+    {
+        "id": 2,
+        "date":"2018-12-20",
+        "expenseHead": "Taxi",
+        "amount": 500.00,
+        "currency": "₹",
+        "expenseCategory": ["Miscellaneous"],
+        "isRecurring": true        
+    },
+    {
+        "id": 3,
+        "date":"2018-12-25",
+        "expenseHead": "Shopping",
+        "amount": 15000.00,
+        "currency": "$",
+        "expenseCategory": ["Miscellaneous"],
+        "isRecurring": true        
+    }
+]

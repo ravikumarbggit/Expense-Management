@@ -1,0 +1,102 @@
+
+    <mat-toolbar color="primary" class="fixed-header-toolbar">
+      <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
+        <div>
+          <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
+        </div>
+        <div>
+          <h4>View</h4>
+        </div>
+        <div>
+          <a *ngIf="expense" [routerLink]="['/app-expense', expense?.id]">
+            <mat-icon color="accent">edit</mat-icon>
+          </a>
+        </div>
+        
+      </div>
+    </mat-toolbar>
+    
+    <div class="form-body">
+    
+    <mat-card *ngIf="expense"> 
+    
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
+        <div fxFlex="34">
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>Head</label>
+            <div>
+              {{expense.expenseHead}}
+              
+            </div>
+          </div>
+        </div>
+        <div fxFlex="34">
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>Amount</label>
+            <div>
+    
+              {{expense.amount}}
+            </div>
+          </div>
+        </div>
+        <div fxFlex="32">
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>Currency</label>
+            <div>
+              {{expense.currency}}
+            </div>
+          </div>
+        </div>
+    
+        <div fxFlex="34">
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>Date</label>
+            <div>
+
+              {{expense.date}}
+    
+            </div>
+          </div>
+    
+        </div>
+    
+    
+      </div>
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
+    
+        <div fxFlex="20">
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>Category</label>
+            <div>
+
+
+              {{expense.expenseCategory}}
+    
+            </div>
+          </div>
+        </div>
+    
+        <div fxFlex="20" class="field">
+          <div>
+            <!-- view receipt -->
+
+          </div>
+    
+        </div>
+        <div fxFlex="10" class="field">
+          <mat-slide-toggle [checked]="expense.isRecurring" [disabled]="true"> Recurring</mat-slide-toggle>
+        </div>
+        <div fxFlex="50" class="field">
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>Details</label>
+            {{expense.details}}
+          </div>
+        </div>
+    
+      </div>
+    
+    </mat-card>
+    
+    </div>
+    
+    

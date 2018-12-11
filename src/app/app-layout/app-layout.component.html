@@ -1,0 +1,40 @@
+<mat-toolbar color="primary" class="top-menu mat-elevation-z5">
+    <div fxHide fxShow.lt-md="true" fxFlexAlign="center" style="padding-right: 10px;">
+        <button mat-icon-button (click)="
+        sidenavIndex.toggle()">
+            <mat-icon class="left-menu-button">menu</mat-icon>
+        </button>        
+    </div>
+    <div>
+
+        <a [routerLink]="['/']">
+            <img src="assets/images/perfecto-logo.png" height="45">
+            <!-- <p>Perfecto Logo</p> -->
+        </a>
+
+    </div>
+
+    <div style="width:80%">
+        <span class="example-spacer"></span>
+    </div>
+    <div fxShow="true" fxHide.lt-md="true" >
+            <app-header></app-header>
+        </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenavIndex mode="over" fxLayout="column" class="side-nav-class" style="padding-top:70px;">
+        <app-header></app-header>
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+        <div class="top-menu-spacer">
+
+        </div>
+
+        <router-outlet></router-outlet>
+        
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

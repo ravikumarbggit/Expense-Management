@@ -1,0 +1,64 @@
+<!-- <app-home-header></app-home-header> -->
+<!-- <mat-toolbar color="primary" class="fixed-header-toolbar">
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
+    <div>
+    </div>
+    <div>
+      Login
+    </div>
+    <div>
+
+    </div>
+  </div>
+</mat-toolbar> -->
+<div>
+  <div class="top-menu-spacer">
+
+  </div>
+  <form [formGroup]="loginForm">
+    <div fxLayout="row" fxLayoutAlign="center center">
+
+
+      <mat-card>
+        <mat-card-header>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="column">
+              <!-- <h3>Login</h3> -->
+              <span style="color:red">{{loginStatusMessage}}</span>
+            </div>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <img  src="assets/images/perfecto-logo.png" height="45">
+            <h4>Expense Tracker</h4>
+            <label>Username</label>
+            <div>
+              <mat-form-field appearance="outline" color="accent">
+                <input matInput formControlName="username" autocomplete="off" autocapitalize="none">
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="center start" class="field">
+            <label>password</label>
+            <div>
+              <mat-form-field appearance="outline" color="accent">
+                <input type="password" formControlName="password" autocomplete="off" matInput (keyup.enter)="login(loginForm.value)">
+              </mat-form-field>
+
+            </div>
+          </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-button type="button" [disabled]="loginForm.invalid" (click)="login(loginForm.value)">Login</button>
+            <button mat-button type="button" [routerLink]="['/app-signup']">Signup</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,55 @@
+@import '~@angular/material/theming';
+@import 'custom-theme.scss';
+@include mat-core();
+
+
+
+$my-grey: (
+    50: #82BC41,
+    100:#fcfcfc,
+    200: #82BC41,
+    300: #82BC41,
+    400: #fcfcfc,
+    500: #fcfcfc,
+    600: #fcfcfc,
+    700: #fcfcfc,
+    800: #fcfcfc,
+    900: #fcfcfc,
+    A100: #C8102E,
+    contrast: (
+    50: #fdfefd,
+    100:#425664,
+    200:#fdfefd,
+    300:#fdfefd,
+    400:#425664,
+    500:#425664,
+    600:#425664,
+    700:#425664,
+    800:#425664,
+    900: #425664,
+    A100: #fcfcfc,
+    )
+);
+
+@mixin custom-components-theme($theme) {
+    @include big-input-component-theme($theme); 
+  }
+  
+
+
+$custom-primary: mat-palette($my-grey, 400, 100, 700);
+
+$custom-accent:  mat-palette($my-grey, 200, 50, 300);
+$custom-warn:  mat-palette($my-grey, A100);
+
+$custom-theme: mat-light-theme($custom-primary, $custom-accent, $custom-warn);
+
+
+
+
+@include angular-material-theme($custom-theme);
+@include custom-components-theme($custom-theme);
+
+
+$custom-typography: mat-typography-config($font-family: '"Lato", sans-serif;');
+@include mat-core($custom-typography);

@@ -1,0 +1,32 @@
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10">
+  <div>
+      <mat-checkbox [formControl]="selected"></mat-checkbox>
+  </div>
+  <div fxShow.lt-md="false">
+      {{expense.expenseCategory}}
+  </div>
+  <div>
+    <div fxLayout="column">
+      <div>
+        <a [routerLink]="['app-expense-view', expense.id]" >
+            {{expense.expenseHead}}
+        </a>
+          
+      </div>
+      <div>
+          {{expense.date}}
+      </div>
+    </div>
+      
+  </div>
+  <div>
+        <div>
+                {{expense.currency}}{{expense.amount}}
+          </div>
+      
+  </div>
+ 
+  <div fxShow.lt-md="false">
+      <mat-checkbox class="example-margin" [(ngModel)]="expense.isRecurring" [disabled]="true">Is Recurring</mat-checkbox>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+<form *ngIf="expenseForm" [formGroup]="expenseForm" (ngSubmit)="onSubmit(expenseForm.value)">
+<mat-toolbar color="primary" class="fixed-header-toolbar">
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
+    <div>
+      <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
+    </div>
+    <div>
+      <h4 *ngIf="!expenseForm.get('id').value">Add</h4>
+      <h4 *ngIf="expenseForm.get('id').value">Edit</h4>
+    </div>
+    <div>
+      <button type="submit" mat-raised-button color="accent">Save</button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<div class="form-body">
+
+<mat-card>
+
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
+    <div fxFlex="34">
+      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+        <label>Head</label>
+        <div>
+          <mat-form-field appearance="outline" color="accent">
+            <input matInput formControlName="expenseHead">
+          </mat-form-field>
+
+        </div>
+      </div>
+    </div>
+    <div fxFlex="34">
+      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+        <label>Amount</label>
+        <div>
+          <mat-form-field appearance="outline" color="accent">
+            <input matInput formControlName="amount" pattern="[0-9]*">
+          </mat-form-field>
+
+        </div>
+      </div>
+    </div>
+    <div fxFlex="32">
+      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+        <label>Currency</label>
+        <div>
+          <mat-form-field appearance="outline" color="accent">
+            <mat-select formControlName="currency">
+              <mat-option *ngFor="let ccy of currencies" [value]="ccy.symbol">
+                {{ccy.text}} - {{ccy.symbol}}
+              </mat-option>
+              <!-- <mat-option value="'INR'">
+                INR
+              </mat-option>
+              <mat-option value="'USD'">
+                USD
+              </mat-option> -->
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <!-- </div>
+
+    <div fxLayout="row" fxLayoutGap="20" fxLayoutAlign="space-between center" fxLayout.lt-md="column"> -->
+
+    <div fxFlex="34">
+      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+        <label>Date</label>
+        <div>
+          <mat-form-field appearance="outline" color="accent">
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
+
+    <div fxFlex="20">
+      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+        <label>Category</label>
+        <div>
+          <mat-form-field appearance="outline" color="accent">
+            <mat-select multiple formControlName="expenseCategory">
+              <mat-option *ngFor="let expCat of expenseCategories" [value] = "expCat">
+                {{expCat}}
+              </mat-option>
+              <!-- <mat-option value="Personal">
+                Peronal
+              </mat-option>
+              <mat-option value="Business">
+                Business
+              </mat-option>
+              <mat-option value="Miscellaneous">
+                Miscellaneous
+              </mat-option> -->
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="20" class="field">
+      <div>
+        <!-- <button mat-raised-button color="accent">Attach Receipt</button> -->
+        <div fxLayout="column" fxLayoutAlign="center start" class="field">
+          <button mat-raised-button type="button" (click)="fileInput.click()" color="accent">Attach Receipt</button>
+          <input #fileInput type="file" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps,.doc,.docx," multiple style="display: none">
+        </div>
+      </div>
+
+    </div>
+    <div fxFlex="10" class="field">
+      <mat-slide-toggle formControlName="isRecurring">Recurring</mat-slide-toggle>
+    </div>
+    <div fxFlex="50" class="field">
+      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+        <label>Details</label>
+        <mat-form-field appearance="outline" style="width:90%" color="accent">
+          <textarea matInput formControlName="details"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+
+</mat-card>
+
+</div>
+
+</form>

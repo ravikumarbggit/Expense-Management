@@ -1,0 +1,27 @@
+
+
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1px" fxLayoutAlign="end center" fxLayoutAlign.lt-md="end start">
+    
+
+
+
+    <!-- (click)="callAgentRegForm($event)" -->
+    <div> 
+      <a>
+      <button mat-button [routerLink]="['/app-about']" >
+        About
+      </button>
+      </a>
+    </div>
+    <div> 
+      <a>
+        <button mat-button (click)="logout()" >
+          Logout
+        </button>
+        </a>
+      </div>
+ 
+  
+  
+  </div>
+  
