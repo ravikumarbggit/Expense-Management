@@ -1,6 +1,7 @@
 <form *ngIf="expenseForm" [formGroup]="expenseForm" (ngSubmit)="onSubmit(expenseForm.value)">
-<mat-toolbar color="primary" class="fixed-header-toolbar">
-  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
+<mat-toolbar color="primary" class="top-menu mat-elevation-z5">
+<!-- <mat-toolbar color="primary" class="fixed-header-toolbar"> -->
+  <!-- <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
     <div>
       <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
     </div>
@@ -11,6 +12,20 @@
     <div>
       <button type="submit" mat-raised-button color="accent">Save</button>
     </div>
+  </div> -->
+  <div style="width:100%" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="15">
+        <button mat-icon-button>
+            <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="65">
+          <h4 *ngIf="!expenseForm.get('id').value">Add</h4>
+          <h4 *ngIf="expenseForm.get('id').value">Edit</h4>
+      </div>
+      <div fxFlex="20">    
+        <button type="submit" mat-raised-button color="accent" [disabled]="expenseForm.invalid" >Save</button>
+      </div>
   </div>
 </mat-toolbar>
 
@@ -21,18 +36,27 @@
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
     <div fxFlex="34">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
-        <label>Head</label>
+        <label>Head*</label>
         <div>
-          <mat-form-field appearance="outline" color="accent">
+          <!-- <mat-form-field appearance="outline" color="accent">
             <input matInput formControlName="expenseHead">
-          </mat-form-field>
+          </mat-form-field> -->
+
+
+          <mat-form-field appearance="outline" color="accent">
+              <mat-select formControlName="expenseHead">
+                <mat-option *ngFor="let head of expenseHeads" [value] = "head">
+                  {{head}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
         </div>
       </div>
     </div>
     <div fxFlex="34">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
-        <label>Amount</label>
+        <label>Amount*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
             <input matInput formControlName="amount" type="number">
@@ -43,7 +67,7 @@
     </div>
     <div fxFlex="32">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
-        <label>Currency</label>
+        <label>Currency*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
             <mat-select formControlName="currency">
@@ -58,10 +82,10 @@
   
     <div fxFlex="34">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
-        <label>Date</label>
+        <label>Date*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
-            <input matInput [matDatepicker]="picker" formControlName="date">
+            <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate" readonly>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -75,7 +99,7 @@
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
 
-    <div fxFlex="20">
+    <div fxFlex="34">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
         <label>Category</label>
         <div>
@@ -91,19 +115,22 @@
       </div>
     </div>
 
-    <div fxFlex="20" class="field">
-      <div>
+    <div fxFlex="34" class="field">
+      <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="10px">
         <div fxLayout="column" fxLayoutAlign="center start" class="field">
           <button mat-raised-button type="button" (click)="fileInput.click()" color="accent">Attach Receipt</button>
-          <input #fileInput type="file" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps,.doc,.docx," multiple style="display: none">
+          <input #fileInput type="file" (change)="onImageChange($event)" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps,.doc,.docx," style="display: none">
+        </div>
+        <div *ngIf="imagePreview">
+          <img height="50" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)" alt="Doc">
         </div>
       </div>
 
     </div>
-    <div fxFlex="10" class="field">
+    <div fxFlex="32" class="field">
       <mat-slide-toggle formControlName="isRecurring">Recurring</mat-slide-toggle>
     </div>
-    <div fxFlex="50" class="field">
+    <div fxFlex="34" class="field">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
         <label>Details</label>
         <mat-form-field appearance="outline" style="width:90%" color="accent">

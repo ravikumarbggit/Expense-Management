@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Expense } from '../data-model/expense.model';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
@@ -8,7 +8,8 @@ import { ExpenseDataService } from '../service/expense-data.service';
 @Component({
   selector: 'app-expense-view',
   templateUrl: './expense-view.component.html',
-  styleUrls: ['./expense-view.component.scss']
+  styleUrls: ['./expense-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpenseViewComponent implements OnInit, OnDestroy {
 

@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Expense, SelectEvent } from '../data-model/expense.model';
 import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-expense-item',
   templateUrl: './expense-item.component.html',
-  styleUrls: ['./expense-item.component.scss']
+  styleUrls: ['./expense-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpenseItemComponent implements OnInit {
 
@@ -21,7 +22,7 @@ export class ExpenseItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('in ExpenseItemComponent ', this.expense);
+    // console.log('in ExpenseItemComponent ', this.expense);
     this.selected.patchValue(this.expense.isSelected);
     this.selected.valueChanges
     .subscribe(value => {
@@ -35,7 +36,7 @@ export class ExpenseItemComponent implements OnInit {
   }
 
   ngOnChanges(){
-    console.log('in HammerCardComponent on changes ', this.expense);
+    // console.log('in HammerCardComponent on changes ', this.expense);
     this.selected.patchValue(this.expense.isSelected);
   }
 

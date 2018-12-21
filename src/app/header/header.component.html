@@ -1,7 +1,26 @@
-
-
 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1px" fxLayoutAlign="end center" fxLayoutAlign.lt-md="end start">
-    
+    <div fxHide fxShow.lt-md="true">
+      <div fxLayout="column">
+
+        <div style="padding-right: 5pt;">
+        <a [routerLink]="['/']">
+          <img src="assets/images/perfecto-logo.png" height="45">
+        </a>
+        </div>
+        <div>
+          <div fxLayout="row" fxLayoutAlign="center center">
+              <mat-icon>person</mat-icon><label>{{user.name}}</label>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div fxShow fxHide.lt-md="true">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-icon>person</mat-icon><label>{{user.name}}</label>
+        </div>
+        
+      </div>
     <div> 
       <a>
       <button mat-button [routerLink]="['/app-about']" >
@@ -9,20 +28,19 @@
       </button>
       </a>
     </div>
-    <!-- <div>
+    <div>
             <a>
         <button mat-button (click)="logout()" >
           Logout
         </button>
         </a>
-    </div> -->
-    <div *ngIf="user"> 
+    </div>
+    <!-- <div *ngIf="user"> 
 
         <button mat-button [matMenuTriggerFor]="menu">{{user.name}}</button>
         <mat-menu #menu="matMenu">
           <button (click)="logout()" mat-menu-item>Logout</button>
         </mat-menu>
-      </div>
+      </div> -->
 
   </div>
-  

@@ -1,5 +1,5 @@
-<mat-toolbar color="primary" class="fixed-header-toolbar">
-  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
+<mat-toolbar color="primary" class="top-menu mat-elevation-z5">
+  <!-- <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
     <div>
       <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
     </div>
@@ -7,28 +7,50 @@
       <h4>About</h4>
     </div>
     <div>
-      <!-- <button type="submit" mat-raised-button color="accent">Save</button> -->
+      
     </div>
+  </div> -->
+  <div style="width:100%" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="15">
+        <button mat-icon-button>
+            <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="65">
+          <h4>About</h4>
+      </div>
+      <div fxFlex="20">            
+      </div>
   </div>
 </mat-toolbar>
 
 <div class="form-body">
-  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="50px">
-    <mat-card>
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <!-- <mat-card>
+      <div style="width:300px; text-align: center;">
+
+      
       <h5>Perfecto Expense Tracker</h5>
       <h6>Version 1.0 Beta</h6>
+    </div>
+    </mat-card> -->
+    <div style="height: 150px;">
 
-    </mat-card>
+    </div>
     <mat-card>
-      <mat-card-header>
-        Presented by
-      </mat-card-header>
-        <img mat-card-image src="assets/images/perfecto-logo.png"> 
+
+        <img width="300px" src="assets/images/perfecto-logo.png"> 
+        <div style="width:300px; text-align: center;">
+
+      
+            <h5>Perfecto Expense Tracker</h5>
+            <h6>Version 1.0 Beta</h6>
+          </div>
     </mat-card>
-    <mat-card>
+    <!-- <mat-card>
       <mat-card-header>
         Powered by
       </mat-card-header>
-        <img mat-card-image src="assets/images/UthkrushtaLogo.png">
-    </mat-card>
+        <img width="300px" src="assets/images/UthkrushtaLogo.png">
+    </mat-card> -->
   </div>

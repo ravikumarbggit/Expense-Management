@@ -8,6 +8,8 @@ import { ConfirmationDialog } from '../utils/confirmation-dialog';
 import { Router, NavigationStart } from '@angular/router';
 import { CdkDragDrop, CdkDragEnd, CdkDrag } from '@angular/cdk/drag-drop';
 import { SidenavService } from '../service/sidenav.service';
+import { User } from '../data-model/user.model';
+import { UsersService } from '../service/users.service';
 
 @Component({
   selector: 'app-expense-list',
@@ -18,6 +20,7 @@ export class ExpenseListComponent implements OnInit {
 
   @ViewChild('sidenavIndex') public sideNav:MatSidenav;
   //expense$: Observable<Expense[]>
+  user:User;
   expenses: Expense[] = [];
   selectAll: boolean = false;
   selected: boolean = false;
@@ -32,7 +35,8 @@ export class ExpenseListComponent implements OnInit {
     , public snackBar: MatSnackBar
     , private dialog: MatDialog
     , private router: Router
-    ,private sideNavService: SidenavService) { 
+    , private sideNavService: SidenavService
+    , private userService: UsersService) { 
 
 
 
@@ -41,6 +45,8 @@ export class ExpenseListComponent implements OnInit {
   ngOnInit() {
     //this.expense$ = this.expenseDataService.getJSON();
     //this.expense$ = this.expenseDataService.getExpenses();
+    this.user = this.userService.getCurrentUser();
+    
     this.expenseDataService.getExpenses().subscribe(response => {
       this.expenses = response;
       if (this.expenses) {
@@ -79,8 +85,8 @@ export class ExpenseListComponent implements OnInit {
     let deleteExpense: Expense = this.expenses.find(exp => exp.id === id);
     this.expenses = this.expenses.filter(item => item != deleteExpense);
     this.expenseDataService.pushExpenses(this.expenses);
-    this.snackBar.open("Deleted!", null, {
-      duration: 2000,
+    this.snackBar.open("Deleted!", "x", {
+      duration: 5000,
     });
   }
 

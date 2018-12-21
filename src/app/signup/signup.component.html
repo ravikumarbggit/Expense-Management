@@ -1,8 +1,8 @@
 <!-- <app-home-header></app-home-header> -->
 
 
-<mat-toolbar color="primary" class="fixed-header-toolbar">
-  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
+<mat-toolbar color="primary" class="top-menu mat-elevation-z5">
+  <!-- <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
     <div>
       <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
     </div>
@@ -12,15 +12,31 @@
     <div>
 
     </div>
+  </div> -->
+
+  <div style="width:100%"  fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="15">
+        <button mat-icon-button>
+            <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="65">
+          <h4>Signup</h4>
+      </div>
+      <div fxFlex="20">    
+          <!-- <button type="submit" mat-raised-button color="accent">Save</button> -->
+          <button mat-raised-button [disabled]="signupForm.invalid || !existingUsers" type="button" (click)="submit(signupForm.value)"
+              color="accent">Save</button>
+      </div>
   </div>
 </mat-toolbar>
-<div>
-  <div class="top-menu-spacer">
+<div class="form-body">
+  <!-- <div class="top-menu-spacer">
 
-  </div>
+  </div> -->
   <form [formGroup]="signupForm">
     <div fxLayout="row" fxLayoutAlign="center center">
-      <mat-card>
+      <mat-card style="width:90%">
         <mat-card-header>
 
         </mat-card-header>
@@ -30,10 +46,10 @@
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
               <img  src="assets/images/perfecto-logo.png" height="45">
               <h4>Expense Tracker</h4>
-            <label>Name</label>
+            <label>Name*</label>
             <div>
               <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
-                <input matInput formControlName="name" autocomplete="off">
+                <input matInput formControlName="name" autocomplete="off" >
                 <mat-hint align="end">{{signupForm.get('name').value?.length || 0}}</mat-hint>
               </mat-form-field>
 
@@ -41,17 +57,17 @@
           </div>
 
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
-            <label>Username</label>
+            <label>Email*</label>
             <div>
               <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
-                <input matInput formControlName="username" autocomplete="off">
+                <input matInput formControlName="username" autocomplete="off" (change)="validateUsername()">
                 <mat-hint align="end">{{signupForm.get('username').value?.length || 0}}</mat-hint>
               </mat-form-field>
 
             </div>
           </div>
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
-            <label>Password</label>
+            <label>Password*</label>
             <div>
               <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
                 <input matInput type="password" formControlName="password" autocomplete="off" (keyup.enter)="submit(signupForm.value)">
@@ -62,7 +78,7 @@
           </div>
 
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
-            <label>Confirm Password</label>
+            <label>Confirm Password*</label>
             <div>
               <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
                 <input matInput type="password" [formControl]="confirmPassword" autocomplete="off" (keyup.enter)="submit(signupForm.value)">
@@ -78,8 +94,8 @@
             <div>
               <mat-form-field appearance="outline" color="accent">
                 <mat-select formControlName="currency">
-                  <mat-option *ngFor="let ccy of currencies" [value]="ccy.symbol">
-                    {{ccy.text}} - {{ccy.symbol}}
+                  <mat-option *ngFor="let ccy of countryList" [value]="ccy.currencyCode">
+                    {{ccy.currency}} - {{ccy.currencyCode}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

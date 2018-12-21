@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Expense } from '../data-model/expense.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -9,37 +9,43 @@ import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from '../data-model/user.model';
 import { UsersService } from '../service/users.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
-  styleUrls: ['./expense.component.scss']
+  styleUrls: ['./expense.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpenseComponent implements OnInit, OnDestroy {
 
   public expenseForm: FormGroup
   datePipe = new DatePipe('en-US');
+  maxDate: Date = new Date();
   //defaultCurrency: string = "INR";
   currencies = [{
     symbol: "₹",
     text: "INR"
-  }, 
+  },
   {
     symbol: "$",
     text: "USD"
   }];
-  expenseCategories: string[] = ["Personal", "Business", "Miscellaneous"]
+  expenseCategories: string[] = ["Personal", "Business", "Miscellaneous"];
+  expenseHeads: string[] = ["Taxi", "Flight", "Meals", "Shopping"];
   expenses: Expense[] = [];
   onDestroy: Subject<boolean> = new Subject();
   private paramSub: Subscription;
   currentUser: User;
+  imagePreview: ImagePreview;
 
   constructor(private fb: FormBuilder
     , private expenseDataService: ExpenseDataService
     , public snackBar: MatSnackBar
     , private route: ActivatedRoute
     , private router: Router
-    , private userService: UsersService) { }
+    , private userService: UsersService
+    , public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
 
@@ -47,7 +53,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
     this.getExpenses();
 
 
-    console.log('this.currentUser: ',this.currentUser);
+    console.log('this.currentUser: ', this.currentUser);
   }
 
   ngOnDestroy() {
@@ -114,9 +120,9 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
       console.log("in submit: ", model)
 
-      if(this.expenses.find(exp => exp.id === model.id)){
+      if (this.expenses.find(exp => exp.id === model.id)) {
         this.expenses.forEach(exp => {
-          if(exp.id === model.id){
+          if (exp.id === model.id) {
             exp.amount = model.amount;
             exp.currency = model.currency;
             exp.date = this.datePipe.transform(model.date, 'yyyy-MM-dd');
@@ -127,15 +133,15 @@ export class ExpenseComponent implements OnInit, OnDestroy {
             exp.isSelected = model.isSelected;
           }
         })
-      }else{
+      } else {
         this.expenses.push(model)
       }
 
-      
+
       this.expenseDataService.pushExpenses(this.expenses);
 
-      this.snackBar.open("Saved!", null, {
-        duration: 2000,
+      let snackBarRef = this.snackBar.open("Saved!", "x", {
+        duration: 5000,
       });
 
       this.router.navigate(['/']);
@@ -151,7 +157,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy)
       )
       .subscribe(params => {
-        console.log("params['id']: " + params['id']);
+        // console.log("params['id']: " + params['id']);
         if (params['id']) {
           let expenseFromRoute: Expense = this.expenses.find(exp => exp.id === +params['id']);
           console.log("expenseFromRoute: ", expenseFromRoute);
@@ -166,4 +172,51 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
   }
 
+  onImageChange(event) {
+    // this.isImageUploadProgress = true;
+
+    // setTimeout(() => {
+    if (event.target.files && event.target.files[0]) {
+      // let image = event.target.files[0];
+
+
+
+      // let uploadedImage: File = new File(image, "name");
+
+
+      // this.getImagePreview("name", uploadedImage);
+
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = { name: name, image: reader.result as string };
+
+      reader.readAsDataURL(file);
+
+    }
+
+
+
+  }
+
+
+  // getImagePreview(name: string, file: File) {
+  //   console.log('1: ', name)
+  //   const reader: FileReader = new FileReader();
+  //   console.log('2');
+  //   reader.readAsDataURL(file);
+  //   console.log('3')
+  //   reader.onload = () => {
+  //     this.imagePreview = { name: name, image: reader.result as string };
+  //     console.log('4: ')
+  //   };
+  // }
+
+
+}
+
+
+export interface ImagePreview {
+  name: string;
+  image: string;
 }

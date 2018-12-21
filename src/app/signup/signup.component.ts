@@ -1,37 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { User } from '../data-model/user.model';
 import { UsersService } from '../service/users.service';
 import { take } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { LocationService } from '../service/location.service';
+import { LocationModel } from '../data-model/location.model';
+import { CountryModel } from '../data-model/country.model';
+import { AlertDialog } from '../utils/alert-dialog';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
   existingUsers: User[] = [];
   confirmPassword = new FormControl('');
+  locationModel: LocationModel;
+  alertRef: MatDialogRef<AlertDialog>;
+  // currencies = [{
+  //   symbol: "₹",
+  //   text: "INR"
+  // }, 
+  // {
+  //   symbol: "$",
+  //   text: "USD"
+  // }];
 
-  currencies = [{
-    symbol: "₹",
-    text: "INR"
-  }, 
-  {
-    symbol: "$",
-    text: "USD"
-  }];
-
+  countryList: CountryModel[] = [
+    {
+      id: "IN",
+      name: "India",
+      currency: "INR",
+      currencyCode: "₹"
+    },
+    {
+      id: "US",
+      name: "United States of America",
+      currency: "USD",
+      currencyCode: "$"
+    },
+    {
+      id: "AU",
+      name: "Australia",
+      currency: "AUD",
+      currencyCode: "A$"
+    },
+    {
+      id: "SG",
+      name: "Singapore",
+      currency: "SGD",
+      currencyCode: "S$"
+    },
+    {
+      id: "UK",
+      name: "United Kingdom",
+      currency: "GBP",
+      currencyCode: "£"
+    },
+  ]
   constructor(private fb: FormBuilder
   ,private usersService: UsersService
   , public snackBar: MatSnackBar
-  , private router: Router) { }
+  , private router: Router
+  , private locationService: LocationService
+  , public dialog: MatDialog ) { }
 
   ngOnInit() {
+    this.getLocation()
     this.initForm();
     this.getExistingUsers();
 
@@ -66,8 +107,8 @@ export class SignupComponent implements OnInit {
     return this.fb.group({
       id: [data.id],
       name: [data.name,  Validators.compose([Validators.required, Validators.minLength(5)])],
-      username: [data.username, Validators.compose([Validators.required, Validators.minLength(5)])],
-      password: [data.password, Validators.compose([Validators.required, Validators.minLength(5)])],
+      username: [data.username, Validators.compose([Validators.required, Validators.email, Validators.minLength(5), this.noWhitespaceValidator])],
+      password: [data.password, Validators.compose([Validators.required, Validators.minLength(5), this.noWhitespaceValidator])],
       currency: [data.currency]
     })
 
@@ -103,4 +144,49 @@ export class SignupComponent implements OnInit {
 
   }
 
+  getLocation(){
+    this.locationService.getCountry()
+    .subscribe(response => {
+      console.log('location: ', response);
+      this.locationModel = response;
+      let currentCountry: CountryModel = this.countryList.find(cl => cl.id === response.country);
+      console.log("currentCountry: ", currentCountry);
+      if(currentCountry){
+        this.signupForm.get('currency').patchValue(currentCountry.currencyCode);
+      }
+    })
+  }
+
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0 || control.value.indexOf(' ') > 0 ;
+    const isValid = !isWhitespace;
+    console.log('isValid: ',isValid);
+    return isValid ? null : { 'whitespace': true };
 }
+
+validateUsername(){
+  let username = this.signupForm.controls['username'].value;
+  let existingUser: User =  this.existingUsers.find(exu => exu.username === username);
+
+  console.log("username: ", username);
+  console.log("existingUser: ", existingUser);
+  if(existingUser){
+    
+    
+    this.alertRef = this.dialog.open(AlertDialog, {
+      disableClose: false
+    });
+
+    this.alertRef.componentInstance.alertMessage = "Email already used";
+    
+    this.alertRef.afterClosed().subscribe(result => {
+      this.signupForm.controls['username'].patchValue('');      
+    })
+
+    
+  }
+}
+
+}
+
+
