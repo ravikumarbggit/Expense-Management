@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Location } from '@angular/common';
 import { Expense } from '../data-model/expense.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ExpenseDataService } from '../service/expense-data.service';
 import { MatSnackBar } from '@angular/material';
@@ -15,7 +16,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'app-expense',
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpenseComponent implements OnInit, OnDestroy {
 
@@ -39,13 +40,22 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   currentUser: User;
   imagePreview: ImagePreview;
 
+
+  amountTickInterval: number = 5;
+  amountThumbLabel: boolean = false;
+  stepAmount: number = 2000;
+  minAmount: number = 1000;
+  maxAmount: number = 20000;
+  amountSlider = new FormControl('');
+
   constructor(private fb: FormBuilder
     , private expenseDataService: ExpenseDataService
     , public snackBar: MatSnackBar
     , private route: ActivatedRoute
     , private router: Router
     , private userService: UsersService
-    , public sanitizer: DomSanitizer) { }
+    , public sanitizer: DomSanitizer
+    , private _location: Location) { }
 
   ngOnInit() {
 
@@ -54,6 +64,15 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
 
     console.log('this.currentUser: ', this.currentUser);
+
+    this.watchAmountSlider();
+  }
+
+  watchAmountSlider(){
+    this.amountSlider.valueChanges
+    .subscribe(response => {
+      this.expenseForm.get('amount').patchValue(response);
+    })
   }
 
   ngOnDestroy() {
@@ -144,7 +163,8 @@ export class ExpenseComponent implements OnInit, OnDestroy {
         duration: 5000,
       });
 
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
+      this.goBack();
 
     } else {
       console.log("Form not vaid");
@@ -212,6 +232,14 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   //   };
   // }
 
+  goBack(){
+    this._location.back();
+  }
+
+
+  deletePreviewPhoto(name: string) {
+    this.imagePreview = undefined;
+  }
 
 }
 

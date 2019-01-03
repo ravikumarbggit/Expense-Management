@@ -1,3 +1,14 @@
-// .field{
-//     background-color: lightcyan;
-// }
+.img-wrap {
+    position: relative;
+   
+  }
+  .img-wrap .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 2;
+    // color: red;
+    font-size: 25px;
+    cursor: pointer;
+    max-width: 100%;
+  }

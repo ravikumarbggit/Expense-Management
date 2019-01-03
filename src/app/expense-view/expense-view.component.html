@@ -16,8 +16,9 @@
       </div> -->
       <div style="width:100%"  fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
           <div fxFlex="15">
-            <button mat-icon-button>
-                <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
+            <button mat-icon-button (click)="goBack()">
+                <!-- <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon> -->
+                <mat-icon class="action-icon">arrow_back</mat-icon>
             </button>
           </div>
           <div fxFlex="65">

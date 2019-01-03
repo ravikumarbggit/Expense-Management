@@ -1,4 +1,4 @@
-<form *ngIf="expenseForm" [formGroup]="expenseForm" (ngSubmit)="onSubmit(expenseForm.value)">
+<form *ngIf="expenseForm" [formGroup]="expenseForm" >
 <mat-toolbar color="primary" class="top-menu mat-elevation-z5">
 <!-- <mat-toolbar color="primary" class="fixed-header-toolbar"> -->
   <!-- <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10" style="width:100%">
@@ -15,8 +15,9 @@
   </div> -->
   <div style="width:100%" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
       <div fxFlex="15">
-        <button mat-icon-button>
-            <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
+        <button mat-icon-button (click)="goBack()" type="button">
+            <!-- <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon> -->
+            <mat-icon class="action-icon">arrow_back</mat-icon>
         </button>
       </div>
       <div fxFlex="65">
@@ -24,7 +25,7 @@
           <h4 *ngIf="expenseForm.get('id').value">Edit</h4>
       </div>
       <div fxFlex="20">    
-        <button type="submit" mat-raised-button color="accent" [disabled]="expenseForm.invalid" >Save</button>
+        <button type="submit" mat-raised-button color="accent" [disabled]="expenseForm.invalid" (click)="onSubmit(expenseForm.value)" >Save</button>
       </div>
   </div>
 </mat-toolbar>
@@ -33,7 +34,7 @@
 
 <mat-card>
 
-  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
     <div fxFlex="34">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
         <label>Head*</label>
@@ -62,6 +63,10 @@
             <input matInput formControlName="amount" type="number">
           </mat-form-field>
 
+          <div>
+            <mat-slider style="width:100%" [max]="maxAmount" [min]="minAmount" [step]="stepAmount" [thumbLabel]="amountThumbLabel" [tickInterval]="amountTickInterval" [formControl]="amountSlider">
+            </mat-slider>
+          </div>
         </div>
       </div>
     </div>
@@ -97,7 +102,7 @@
 
 
   </div>
-  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
 
     <div fxFlex="34">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
@@ -122,7 +127,16 @@
           <input #fileInput type="file" (change)="onImageChange($event)" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps,.doc,.docx," style="display: none">
         </div>
         <div *ngIf="imagePreview">
-          <img height="50" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)" alt="Doc">
+          <!-- <img width="200px" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)" alt="Doc"> -->
+
+
+              <div class="img-wrap">
+                  <!-- <span class="close" (click)="deletePreviewPhoto(imagePreview.name)">&times;</span> -->
+                  <mat-icon class="close" color="warn" (click)="deletePreviewPhoto(imagePreview.name)">delete</mat-icon>
+                  <img width="200px" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)">
+              </div>
+      
+
         </div>
       </div>
 

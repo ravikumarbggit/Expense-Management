@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Location } from '@angular/common';
 import { Expense } from '../data-model/expense.model';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
@@ -18,7 +19,8 @@ export class ExpenseViewComponent implements OnInit, OnDestroy {
   onDestroy: Subject<boolean> = new Subject();
 
   constructor(private route: ActivatedRoute
-  ,private expenseDataService: ExpenseDataService) { }
+  ,private expenseDataService: ExpenseDataService
+  , private _location: Location) { }
   
 
   ngOnInit() {
@@ -55,6 +57,10 @@ export class ExpenseViewComponent implements OnInit, OnDestroy {
 
       });
 
+  }
+
+  goBack(){
+    this._location.back();
   }
 
 }

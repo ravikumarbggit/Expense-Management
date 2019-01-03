@@ -1,17 +1,41 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { trigger, animate, style, group, animateChild, query, stagger, transition } from '@angular/animations';
 import { ExpenseDataService } from './service/expense-data.service';
 import { MatSidenav } from '@angular/material';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, RouterOutlet } from '@angular/router';
 import { SidenavService } from './service/sidenav.service';
 import { UsersService } from './service/users.service';
 import { User } from './data-model/user.model';
 import { take } from 'rxjs/operators';
 import { Expense } from './data-model/expense.model';
 
+
+export const routerTransition = trigger('routerTransition', [
+  transition('* <=> *', [
+    /* order */
+    /* 1 */ query(':enter, :leave', style({ position: 'fixed', width: '100%' })
+      , { optional: true }),
+    /* 2 */ group([  // block executes in parallel
+      query(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
+      ], { optional: true }),
+      query(':leave', [
+        style({ transform: 'translateX(0%)' }),
+        animate('0.5s ease-in-out', style({ transform: 'translateX(-100%)' }))
+      ], { optional: true }),
+    ])
+  ])
+])
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [routerTransition]
 })
 export class AppComponent {
 
@@ -41,5 +65,11 @@ export class AppComponent {
 
 
   }
+
+  getState(outlet) {
+    return outlet.activatedRouteData.state;
+  }
+
+
 
 }

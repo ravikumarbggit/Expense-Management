@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatCardModule, MatButtonModule, DateAdapter, MatNativeDateModule, MatSidenavModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, DateAdapter, MatNativeDateModule, MatSidenavModule, MatSliderModule } from '@angular/material';
 // import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
@@ -19,6 +19,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
@@ -75,6 +76,8 @@ import { ExpenseViewComponent } from './expense-view/expense-view.component';
     MatSnackBarModule,
     DragDropModule,
     MatMenuModule,
+    MatDividerModule,
+    MatSliderModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: DateFormat },

@@ -14,35 +14,42 @@ const routes: Routes = [
   {        
     path: '', component: ExpenseListComponent,
     canActivate: [AuthGuard],
+    data: { state: 'app-expense-list' }
   },
   {
     path: 'app-expense/:id',
     canActivate: [AuthGuard],
-    component: ExpenseComponent
+    component: ExpenseComponent,
+    data: { state: 'app-expense' }
   },
   {
     path: 'app-expense',
     canActivate: [AuthGuard],
-    component: ExpenseComponent
+    component: ExpenseComponent,
+    data: { state: 'app-expense' }
   }, 
   {
     path:'app-about',
     component:AboutComponent,  
-    canActivate: [AuthGuard],      
+    canActivate: [AuthGuard],   
+    data: { state: 'app-about' }   
   },
 
   {
     path: 'app-expense-view/:id',
     component: ExpenseViewComponent,
     canActivate: [AuthGuard],
+    data: { state: 'app-expense-view' }
   },
   {
     path:'app-signup',
-    component:SignupComponent,        
+    component:SignupComponent,      
+    data: { state: 'app-signup' }  
   },  
   {
     path:'app-login',
-    component:LoginComponent,        
+    component:LoginComponent, 
+    data: { state: 'app-login' }       
   },  
   
   {path: '404',  component: NotFoundComponent},
