@@ -37,7 +37,7 @@ $my-grey: (
   
 
 
-$custom-primary: mat-palette($my-grey, 400, 100, 700);
+$custom-primary: mat-palette($my-grey, 300, 100, 700);
 
 $custom-accent:  mat-palette($my-grey, 200, 50, 300);
 $custom-warn:  mat-palette($my-grey, A100);

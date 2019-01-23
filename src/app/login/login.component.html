@@ -11,7 +11,7 @@
     </div>
   </div>
 </mat-toolbar> -->
-<div>
+<div class="app-background">
   <div class="top-menu-spacer">
 
   </div>
@@ -35,7 +35,7 @@
             <label>Email</label>
             <div>
               <mat-form-field appearance="outline" color="accent">
-                <input matInput formControlName="username" autocomplete="off" autocapitalize="none">
+                <input matInput formControlName="username" id="login_email" name="login_email" class="login_email" autocomplete="off" autocapitalize="none">
               </mat-form-field>
 
             </div>
@@ -45,7 +45,7 @@
             <label>password</label>
             <div>
               <mat-form-field appearance="outline" color="accent">
-                <input type="password" formControlName="password" autocomplete="off" matInput (keyup.enter)="login(loginForm.value)">
+                <input type="password" formControlName="password" id="login_password" name="login_password" class="login_password" autocomplete="off" matInput (keyup.enter)="login(loginForm.value)">
               </mat-form-field>
 
             </div>
@@ -54,8 +54,8 @@
         </mat-card-content>
         <mat-card-actions>
           <div fxLayout="row" fxLayoutAlign="center center">
-            <button mat-button type="button" [disabled]="loginForm.invalid" (click)="login(loginForm.value)">Login</button>
-            <button mat-button type="button" [routerLink]="['/app-signup']">Signup</button>
+            <button mat-button type="button" id="login_login_btn" name="login_login_btn" class="login_login_btn" [disabled]="loginForm.invalid" (click)="login(loginForm.value)">Login</button>
+            <button mat-button type="button" id="login_signup_btn" name="login_signup_btn" class="login_signup_btn" [routerLink]="['/app-signup']">Signup</button>
           </div>
         </mat-card-actions>
       </mat-card>

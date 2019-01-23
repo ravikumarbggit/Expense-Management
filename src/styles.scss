@@ -10,7 +10,7 @@ body{
     
 a{
     text-decoration:none;
-    color: #0086BF;
+    // color: #0086BF;
     
 }
 
@@ -18,7 +18,7 @@ a{
     font-size: 14pt !important;
 }
 a:hover{
-    color: #82BC41;
+    // color: #82BC41;
 }
 
 label{
@@ -62,4 +62,14 @@ h4{
     padding-top: 60px;
     padding-left: 0px;
     padding-right: 0px;
+    height: 100vh;
+}
+
+.app-background{
+    background-color: #82BC41;
+    height: 100vh;
+}
+
+.full-screen-card {
+    min-height: 100vh;
 }

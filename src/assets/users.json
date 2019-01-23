@@ -1,15 +1,15 @@
 [
     {
         "id":1,
-        "username":"ravi@gmail.com",
-        "password":"ravi",
-        "name": "Ravi",
+        "username":"test@perfecto.com",
+        "password":"test123",
+        "name": "Expense Tester",
         "currency": "$"
     },
     {
         "id": 2,
         "username":"test@gmail.com",
-        "password":"test",
+        "password":"test123",
         "name": "Tester",
         "currency": "$"
     }

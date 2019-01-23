@@ -16,7 +16,7 @@
       </div> -->
       <div style="width:100%"  fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
           <div fxFlex="15">
-            <button mat-icon-button (click)="goBack()">
+            <button mat-icon-button (click)="goBack()" id="view_back_btn" name="view_back_btn" class="view_back_btn">
                 <!-- <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon> -->
                 <mat-icon class="action-icon">arrow_back</mat-icon>
             </button>
@@ -27,7 +27,7 @@
           <div fxFlex="20">    
               <a *ngIf="expense" [routerLink]="['/app-expense', expense?.id]">
                 <!-- <mat-icon color="accent">edit</mat-icon> -->
-                <button type="button" mat-raised-button color="accent">Edit</button>
+                <button type="button" mat-raised-button color="accent" id="view_edit_btn" name="view_edit_btn" class="view_edit_btn">Edit</button>
               </a>
           </div>
       </div>
@@ -35,7 +35,7 @@
     
     <div class="form-body">
     
-    <mat-card *ngIf="expense"> 
+    <mat-card *ngIf="expense" class="full-screen-card"> 
     
       <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
         <div fxFlex="34">
@@ -101,7 +101,10 @@
     
         </div>
         <div fxFlex="32" class="field">
-          <mat-slide-toggle [checked]="expense.isRecurring" [disabled]="true"> Recurring</mat-slide-toggle>
+          <!-- <mat-slide-toggle [checked]="expense.isRecurring" [disabled]="true"> Recurring</mat-slide-toggle> -->
+          <label>Recurring: </label>
+          <p *ngIf="expense.isRecurring">Yes</p>
+          <p *ngIf="!expense.isRecurring">No</p>
         </div>
         <div fxFlex="34" class="field">
           <div fxLayout="column" fxLayoutAlign="center start" class="field">

@@ -15,7 +15,7 @@
   </div> -->
   <div style="width:100%" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
       <div fxFlex="15">
-        <button mat-icon-button (click)="goBack()" type="button">
+        <button mat-icon-button (click)="goBack()" type="button" id="add_back_btn" name="add_back_btn" class="add_back_btn">
             <!-- <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon> -->
             <mat-icon class="action-icon">arrow_back</mat-icon>
         </button>
@@ -32,7 +32,7 @@
 
 <div class="form-body">
 
-<mat-card>
+<mat-card class="full-screen-card">
 
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
     <div fxFlex="34">
@@ -45,7 +45,7 @@
 
 
           <mat-form-field appearance="outline" color="accent">
-              <mat-select formControlName="expenseHead">
+              <mat-select formControlName="expenseHead" id="add_head" name="add_head" class="add_head">
                 <mat-option *ngFor="let head of expenseHeads" [value] = "head">
                   {{head}}
                 </mat-option>
@@ -60,12 +60,23 @@
         <label>Amount*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
-            <input matInput formControlName="amount" type="number">
+            <input matInput formControlName="amount" type="number" max="10000" id="add_amount" name="add_amount" class="add_amount">
+            <mat-hint align="end">Max value {{maxAmount | number}}</mat-hint>
           </mat-form-field>
 
           <div>
-            <mat-slider style="width:100%" [max]="maxAmount" [min]="minAmount" [step]="stepAmount" [thumbLabel]="amountThumbLabel" [tickInterval]="amountTickInterval" [formControl]="amountSlider">
-            </mat-slider>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10pt">
+              <div>
+                <label>{{minAmount | number}}</label>
+              </div>
+              <div>
+                <mat-slider style="width:100%" [max]="maxAmount" [min]="minAmount" [step]="stepAmount" [thumbLabel]="amountThumbLabel" [tickInterval]="amountTickInterval" [formControl]="amountSlider">
+                </mat-slider>
+              </div>
+              <div>
+                <label>{{maxAmount | number}}</label>
+              </div>
+          </div>
           </div>
         </div>
       </div>
@@ -75,7 +86,7 @@
         <label>Currency*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
-            <mat-select formControlName="currency">
+            <mat-select formControlName="currency" id="add_currency" name="add_currency" class="add_currency">
               <mat-option *ngFor="let ccy of currencies" [value]="ccy.symbol">
                 {{ccy.text}} - {{ccy.symbol}}
               </mat-option>
@@ -90,7 +101,7 @@
         <label>Date*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
-            <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate" readonly>
+            <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate" readonly id="add_date" name="add_date" class="add_date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -109,7 +120,7 @@
         <label>Category</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
-            <mat-select multiple formControlName="expenseCategory">
+            <mat-select multiple formControlName="expenseCategory" id="add_category" name="add_category" class="add_category">
               <mat-option *ngFor="let expCat of expenseCategories" [value] = "expCat">
                 {{expCat}}
               </mat-option>
@@ -122,8 +133,15 @@
 
     <div fxFlex="34" class="field">
       <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="10px">
+        <div>
+          <label>Attachment</label>
+        </div>
         <div fxLayout="column" fxLayoutAlign="center start" class="field">
-          <button mat-raised-button type="button" (click)="fileInput.click()" color="accent">Attach Receipt</button>
+          <button mat-raised-button type="button" (click)="fileInput.click()" color="accent" id="add_attach_btn" name="add_attach_btn" class="add_attach_btn">
+            <mat-icon>
+              attachment
+            </mat-icon>
+          </button>
           <input #fileInput type="file" (change)="onImageChange($event)" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps,.doc,.docx," style="display: none">
         </div>
         <div *ngIf="imagePreview">
@@ -132,7 +150,7 @@
 
               <div class="img-wrap">
                   <!-- <span class="close" (click)="deletePreviewPhoto(imagePreview.name)">&times;</span> -->
-                  <mat-icon class="close" color="warn" (click)="deletePreviewPhoto(imagePreview.name)">delete</mat-icon>
+                  <mat-icon class="close" color="warn" (click)="deletePreviewPhoto()">delete</mat-icon>
                   <img width="200px" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)">
               </div>
       
@@ -142,17 +160,26 @@
 
     </div>
     <div fxFlex="32" class="field">
-      <mat-slide-toggle formControlName="isRecurring">Recurring</mat-slide-toggle>
+      <mat-slide-toggle formControlName="isRecurring" id="add_recurring_toggle" name="add_recurring_toggle" class="add_recurring_toggle">Recurring</mat-slide-toggle>
     </div>
     <div fxFlex="34" class="field">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
         <label>Details</label>
         <mat-form-field appearance="outline" style="width:90%" color="accent">
-          <textarea matInput formControlName="details"></textarea>
+          <textarea matInput formControlName="details" id="add_details" name="add_details" class="add_details"></textarea>
         </mat-form-field>
       </div>
     </div>
 
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20pt">
+    <div>
+        <button type="submit" mat-raised-button color="accent" [disabled]="expenseForm.invalid" (click)="onSubmit(expenseForm.value)" id="add_save_btn" name="add_save_btn" class="add_save_btn" >Save</button>
+    </div>
+    <div>
+        <button type="button" mat-raised-button   (click)="reset()" id="add_reset_btn" name="add_reset_btn" class="add_reset_btn">Reset</button>
+    </div>
   </div>
 
 </mat-card>

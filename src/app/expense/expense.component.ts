@@ -31,6 +31,30 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   {
     symbol: "$",
     text: "USD"
+  },
+  {
+    symbol: "A$",
+    text: "AUD"
+  },
+  {
+    symbol: "S$",
+    text: "SGD"
+  },
+  {
+    symbol: "£",
+    text: "GBP"
+  },
+  {
+    symbol: "€",
+    text: "GBP"
+  },
+  {
+    symbol: "¥",
+    text: "CNY"
+  },
+  {
+    symbol: "¥",
+    text: "JPY"
   }];
   expenseCategories: string[] = ["Personal", "Business", "Miscellaneous"];
   expenseHeads: string[] = ["Taxi", "Flight", "Meals", "Shopping"];
@@ -43,9 +67,9 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
   amountTickInterval: number = 5;
   amountThumbLabel: boolean = false;
-  stepAmount: number = 2000;
-  minAmount: number = 1000;
-  maxAmount: number = 20000;
+  stepAmount: number = 500;
+  minAmount: number = 0;
+  maxAmount: number = 10000;
   amountSlider = new FormControl('');
 
   constructor(private fb: FormBuilder
@@ -65,14 +89,24 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
     console.log('this.currentUser: ', this.currentUser);
 
-    this.watchAmountSlider();
+    
   }
 
   watchAmountSlider(){
     this.amountSlider.valueChanges
     .subscribe(response => {
-      this.expenseForm.get('amount').patchValue(response);
+      this.expenseForm.get('amount').patchValue(response, {emitEvent: false});
+    });
+
+    this.expenseForm.get('amount').valueChanges.subscribe(result => {
+
+      if(result > this.maxAmount){
+        this.expenseForm.get('amount').patchValue(this.maxAmount, {emitEvent: false});
+        result = this.maxAmount;
+      }
+      this.amountSlider.patchValue(result, {emitEvent: false});
     })
+
   }
 
   ngOnDestroy() {
@@ -99,6 +133,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
     this.expenseForm = this.toFormGroup(data);
 
+    this.watchAmountSlider();
   }
 
   toFormGroup(data: Expense): FormGroup {
@@ -181,8 +216,11 @@ export class ExpenseComponent implements OnInit, OnDestroy {
         if (params['id']) {
           let expenseFromRoute: Expense = this.expenses.find(exp => exp.id === +params['id']);
           console.log("expenseFromRoute: ", expenseFromRoute);
-          if (expenseFromRoute)
+          if (expenseFromRoute){
             this.expenseForm = this.toFormGroup(expenseFromRoute);
+            this.amountSlider.patchValue(expenseFromRoute.amount, {emitEvent: false});
+            this.watchAmountSlider();
+          }
         }
         else {
           this.initForm();
@@ -190,6 +228,12 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
       });
 
+  }
+
+  reset(){
+    this.amountSlider.patchValue(0, {emitEvent: false});
+    this.deletePreviewPhoto();
+    this.initForm();
   }
 
   onImageChange(event) {
@@ -237,7 +281,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   }
 
 
-  deletePreviewPhoto(name: string) {
+  deletePreviewPhoto() {
     this.imagePreview = undefined;
   }
 

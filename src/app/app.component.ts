@@ -10,26 +10,81 @@ import { take } from 'rxjs/operators';
 import { Expense } from './data-model/expense.model';
 
 
+// export const routerTransition = trigger('routerTransition', [
+//   transition('* <=> *', [
+//     /* order */
+//     /* 1 */ query(':enter, :leave', style({ position: 'fixed', width: '100%' })
+//       , { optional: true }),
+//     /* 2 */ group([  // block executes in parallel
+//       query(':enter', [
+//         style({ transform: 'translateX(100%)' }),
+//         animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
+//       ], { optional: true }),
+//       query(':leave', [
+//         style({ transform: 'translateX(0%)' }),
+//         animate('0.5s ease-in-out', style({ transform: 'translateX(-100%)' }))
+//       ], { optional: true }),
+//     ])
+//   ])
+// ])
+
 export const routerTransition = trigger('routerTransition', [
-  transition('* <=> *', [
-    /* order */
-    /* 1 */ query(':enter, :leave', style({ position: 'fixed', width: '100%' })
-      , { optional: true }),
-    /* 2 */ group([  // block executes in parallel
-      query(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
-      ], { optional: true }),
-      query(':leave', [
-        style({ transform: 'translateX(0%)' }),
-        animate('0.5s ease-in-out', style({ transform: 'translateX(-100%)' }))
-      ], { optional: true }),
-    ])
-  ])
+// LEFT TO RIGHT AKA PREVIOUS
+transition('* => 1', [
+  // Initial state of new route
+  query(':enter',
+    style({
+      position: 'fixed',
+      width: '100%',
+      transform: 'translateX(-100%)'
+    }), { optional: true }),
+  // move page off screen right on leave
+  // query(':leave',
+  //   animate('300ms ease',
+  //     style({
+  //       position: 'fixed',
+  //       width: '100%',
+  //       transform: 'translateX(100%)',
+  //     })
+  //   ), { optional: true }),
+  // move page in screen from left to right
+  query(':enter',
+    animate('500ms ease',
+      style({
+        opacity: 1,
+        transform: 'translateX(0%)'
+      })
+    ), { optional: true }),
+]),
+
+// RIGHT TO LEFT
+transition('1 => *', [
+  // Initial state of new route
+  query(':enter',
+    style({
+      position: 'fixed',
+      width: '100%',
+      transform: 'translateX(100%)'
+    }), { optional: true }),
+  // move page off screen right on leave
+  // query(':leave',
+  //   animate('300ms ease',
+  //     style({
+  //       position: 'fixed',
+  //       width: '100%',
+  //       transform: 'translateX(100%)',
+  //     })
+  //   ), { optional: true }),
+  // move page in screen from left to right
+  query(':enter',
+    animate('500ms ease',
+      style({
+        opacity: 1,
+        transform: 'translateX(0%)'
+      })
+    ), { optional: true }),
+]),
 ])
-
-
-
 
 @Component({
   selector: 'app-root',

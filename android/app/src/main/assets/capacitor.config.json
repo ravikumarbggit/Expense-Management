@@ -1,6 +1,0 @@
-{
-  "appId": "com.expense.app",
-  "appName": "Expense",
-  "bundledWebRuntime": false,
-  "webDir": "www"
-}

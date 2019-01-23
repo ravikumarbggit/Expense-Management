@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1px" fxLayoutAlign="end center" fxLayoutAlign.lt-md="end start">
     <div fxHide fxShow.lt-md="true">
-      <div fxLayout="column">
+      <div fxLayout="column" fxLayoutAlign="center center" class="side-nav-class" style="padding-top:70px; padding-right: 20pt;">
 
         <div style="padding-right: 5pt;">
         <a [routerLink]="['/']">
@@ -9,7 +9,7 @@
         </div>
         <div>
           <div fxLayout="row" fxLayoutAlign="center center">
-              <mat-icon>person</mat-icon><label>{{user.name}}</label>
+              <p style="color:white; font-size: 10pt;">{{user.name}}</p>
           </div>
           
         </div>
@@ -17,20 +17,20 @@
     </div>
     <div fxShow fxHide.lt-md="true">
         <div fxLayout="row" fxLayoutAlign="center center">
-            <mat-icon>person</mat-icon><label>{{user.name}}</label>
+            <mat-icon>person</mat-icon><p style="color:white;">{{user.name}}</p>
         </div>
         
       </div>
     <div> 
       <a>
-      <button mat-button [routerLink]="['/app-about']" >
+      <button mat-button [routerLink]="['/app-about']" id="list_about_menu" >
         About
       </button>
       </a>
     </div>
     <div>
             <a>
-        <button mat-button (click)="logout()" >
+        <button mat-button (click)="logout()" id="list_logout_menu" >
           Logout
         </button>
         </a>

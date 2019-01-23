@@ -182,4 +182,10 @@ export class ExpenseListComponent implements OnInit {
    
   }
 
+
+  viewExpense(expense: Expense){
+    console.log('expense click: ', expense);
+    this.router.navigate(['/app-expense-view', expense.id]);
+  }
+
 }

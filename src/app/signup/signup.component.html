@@ -16,7 +16,7 @@
 
   <div style="width:100%"  fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
       <div fxFlex="15">
-        <button mat-icon-button>
+        <button mat-icon-button id="signup_back_btn" name="signup_back_btn" class="signup_back_btn">
             <mat-icon class="action-icon" [routerLink]="['/']">arrow_back</mat-icon>
         </button>
       </div>
@@ -25,8 +25,8 @@
       </div>
       <div fxFlex="20">    
           <!-- <button type="submit" mat-raised-button color="accent">Save</button> -->
-          <button mat-raised-button [disabled]="signupForm.invalid || !existingUsers" type="button" (click)="submit(signupForm.value)"
-              color="accent">Save</button>
+          <!-- <button mat-raised-button [disabled]="signupForm.invalid || !existingUsers || !confirmPassword.valid || !confirmPassword.value" type="button" (click)="submit(signupForm.value)"
+              color="accent">Save</button> -->
       </div>
   </div>
 </mat-toolbar>
@@ -49,7 +49,7 @@
             <label>Name*</label>
             <div>
               <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
-                <input matInput formControlName="name" autocomplete="off" >
+                <input matInput formControlName="name" id="signup_name" name="signup_name" class="signup_name" autocomplete="off" >
                 <mat-hint align="end">{{signupForm.get('name').value?.length || 0}}</mat-hint>
               </mat-form-field>
 
@@ -59,9 +59,8 @@
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
             <label>Email*</label>
             <div>
-              <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
-                <input matInput formControlName="username" autocomplete="off" (change)="validateUsername()">
-                <mat-hint align="end">{{signupForm.get('username').value?.length || 0}}</mat-hint>
+              <mat-form-field appearance="outline" color="accent">
+                <input matInput formControlName="username" id="signup_email" name="signup_email" class="signup_email" autocomplete="off" (change)="validateUsername()">
               </mat-form-field>
 
             </div>
@@ -70,7 +69,7 @@
             <label>Password*</label>
             <div>
               <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
-                <input matInput type="password" formControlName="password" autocomplete="off" (keyup.enter)="submit(signupForm.value)">
+                <input matInput type="password" formControlName="password" id="signup_password" name="signup_password" class="signup_password" autocomplete="off" (keyup.enter)="submit(signupForm.value)">
                 <mat-hint align="end">{{signupForm.get('password').value?.length || 0}}</mat-hint>
               </mat-form-field>
 
@@ -81,7 +80,7 @@
             <label>Confirm Password*</label>
             <div>
               <mat-form-field appearance="outline" color="accent" hintLabel="Min 5 characters">
-                <input matInput type="password" [formControl]="confirmPassword" autocomplete="off" (keyup.enter)="submit(signupForm.value)">
+                <input matInput type="password" [formControl]="confirmPassword" id="signup_confirm_password" name="signup_confirm_password" class="signup_confirm_password" autocomplete="off" (keyup.enter)="submit(signupForm.value)">
                 <mat-hint align="end">{{signupForm.get('password').value?.length || 0}}</mat-hint>
                 <mat-error *ngIf="!confirmPassword.valid">Not matching with password!</mat-error>
               </mat-form-field>
@@ -93,7 +92,8 @@
             <label>Currency</label>
             <div>
               <mat-form-field appearance="outline" color="accent">
-                <mat-select formControlName="currency">
+                <mat-select formControlName="currency" id="signup_currency" name="signup_currency" class="signup_currency" placeholder="Select">
+                  <mat-option>Select</mat-option>
                   <mat-option *ngFor="let ccy of countryList" [value]="ccy.currencyCode">
                     {{ccy.currency}} - {{ccy.currencyCode}}
                   </mat-option>
@@ -105,8 +105,8 @@
         </mat-card-content>
         <mat-card-actions>
           <div fxLayout="row" fxLayoutAlign="center center">
-            <button mat-raised-button [disabled]="signupForm.invalid || !existingUsers" type="button" (click)="submit(signupForm.value)"
-              color="accent">Register</button>
+            <button mat-raised-button [disabled]="signupForm.invalid || !existingUsers || !confirmPassword.valid || !confirmPassword.value" type="button" (click)="submit(signupForm.value)"
+              color="accent" id="signup_save_btn" name="signup_save_btn" class="signup_save_btn" >Register</button>
           </div>
         </mat-card-actions>
 

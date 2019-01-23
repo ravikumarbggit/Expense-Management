@@ -18,7 +18,7 @@
   <div style="width:100%" fxHide fxShow.lt-md="true" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex="15">
       <button mat-icon-button (click)="
-          sidenavIndex.toggle()">
+          sidenavIndex.toggle()" id="list_left_menu_btn" name="list_left_menu_btn" class="list_left_menu_btn">
         <mat-icon class="left-menu-button">menu</mat-icon>
       </button>
     </div>
@@ -34,65 +34,18 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenavIndex mode="over" fxLayout="column" class="side-nav-class" style="padding-top:70px;">
+  <mat-sidenav #sidenavIndex mode="over" fxLayout="column">
     <app-header></app-header>
   </mat-sidenav>
   <mat-sidenav-content>
 
-    <!-- <div class="top-menu-spacer">
-
-        </div> -->
-
-    <!-- <mat-toolbar color="primary" class="fixed-header-toolbar">
-            <div style="width:100%">
-                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10">
-                  <div>
-                    <div fxShow="true" fxHide.lt-md="true">
-                      <mat-checkbox [formControl]="selectAllControl">
-                          <label>Select</label>
-                      </mat-checkbox>
-                    </div>
-                    <div fxShow="false" fxShow.lt-md="true">
-                        <mat-checkbox [formControl]="selectAllControl">
-                        </mat-checkbox>
-                    </div>
-                  </div>
-                  <div fxShow.lt-md="false">
-                    &nbsp;
-                  </div>
-                  <div>
-                    <div fxLayout="column">
-                      <div>
-                        <h4>Expenses</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div fxLayout="column">
-          
-          
-                      <button *ngIf="displayAdd()" [routerLink]="['/app-expense']" mat-mini-fab color="accent">
-                        <mat-icon class="action-icon">add</mat-icon>
-                      </button>
-                      <button *ngIf="displayDelete()" (click)="deleteSelected()" mat-mini-fab color="warn">
-                        <mat-icon class="action-icon">delete</mat-icon>
-                      </button>
-          
-                    </div>
-          
-                  </div>
-          
-                  <div fxShow.lt-md="false">
-                    &nbsp;
-                  </div>
-                </div>
-              </div>
-          </mat-toolbar> -->
+    
     <div class="form-body" style="height:100vh;">
-      <!-- <mat-card> -->
 
-      <div fxLayout="column" fxLayoutGap="2pt" fxLayoutAlign="center stretch">
-        <!-- <mat-card *ngFor="let expense of expenses; let i = index" class="element-card" > -->
+      <div fxLayout="column" fxLayoutGap="10pt" fxLayoutAlign="center stretch">      
+        <div *ngIf="!expenses || expenses?.length === 0">
+          <p style="padding-left: 5pt;">No expenses found. Click + to create</p>
+        </div>
         <div *ngFor="let expense of expenses; let i = index" class="element-card">
 
           <div class="element-action-class-bg" ngClass.xs="element-action-class-sm">
@@ -101,9 +54,9 @@
                 <div *ngIf="displayEditButton" class="edit-section">
 
 
-                  <button mat-mini-fab color="accent">
-                    <mat-icon class="action-icon">edit</mat-icon>
-                  </button>
+                  <!-- <button mat-mini-fab color="accent"> -->
+                    <mat-icon class="action-icon" style="color: white">edit</mat-icon>
+                  <!-- </button> -->
 
                 </div>
               </div>
@@ -112,9 +65,9 @@
               </div>
               <div fxFlex="20">
                 <div class="delete-section">
-                  <button mat-mini-fab color="warn">
-                    <mat-icon class="action-icon">delete</mat-icon>
-                  </button>
+                  <!-- <button mat-mini-fab color="warn"> -->
+                    <mat-icon class="action-icon" color="warn">delete</mat-icon>
+                  <!-- </button> -->
 
                 </div>
 
@@ -123,29 +76,26 @@
           </div>
 
           <div (cdkDragEnded)="dragEnded($event, i)" cdkDragLockAxis="x" cdkDrag class="element-class">
-          <!-- <div class="element-class"> -->
-              <div class="example-handle" cdkDragHandle>
-                  <!-- <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
-                    <path d="M0 0h24v24H0z" fill="none"></path>
-                  </svg> -->
+
+              <div class="example-handle" (tap)="viewExpense(expense)" cdkDragHandle>
+
                 </div>
             <app-expense-item [expense]="expense" [changeCounter]="changeCounter" (deleteEvent)="deleteExpense($event)" (selectEvent)="selectExpense($event)"
               (editEvent)="editExpense($event)"></app-expense-item>
           </div>
 
-          <!-- </mat-card> -->
+
         </div>
 
       </div>
-      <!-- </mat-card> -->
+
     </div>
 
     <div class="add-icon-container">
-        <button *ngIf="displayAdd()" [routerLink]="['/app-expense']" mat-fab color="accent">
+        <button *ngIf="displayAdd()" [routerLink]="['/app-expense']" mat-fab color="accent" id="list_add_btn" name="list_add_btn" class="list_add_btn">
           <mat-icon class="action-icon">add</mat-icon>
         </button>
-        <button *ngIf="displayDelete()" (click)="deleteSelected()" mat-fab color="warn">
+        <button *ngIf="displayDelete()" (click)="deleteSelected()" mat-fab color="warn" id="list_delete_btn" name="list_delete_btn" class="list_delete_btn">
             <mat-icon class="action-icon">delete</mat-icon>
         </button>    
     </div>

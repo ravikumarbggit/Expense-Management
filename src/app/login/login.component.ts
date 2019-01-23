@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
       }
       else{
         console.log("Incorrect credentials...")
-        this.loginStatusMessage = "Invalid username or password";
+        this.loginStatusMessage = "Invalid email or password";
       }
 
     })

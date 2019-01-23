@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
   existingUsers: User[] = [];
-  confirmPassword = new FormControl('');
+  confirmPassword = new FormControl(null);
   locationModel: LocationModel;
   alertRef: MatDialogRef<AlertDialog>;
   // currencies = [{
@@ -63,6 +63,24 @@ export class SignupComponent implements OnInit {
       currency: "GBP",
       currencyCode: "£"
     },
+    {
+      id: "EUR",
+      name: "Europe",
+      currency: "EUR",
+      currencyCode: "€"
+    },
+    {
+      id: "CN",
+      name: "China",
+      currency: "CNY",
+      currencyCode: "¥"
+    },
+    {
+      id: "JP",
+      name: "Japan",
+      currency: "JPY",
+      currencyCode: "¥"
+    },
   ]
   constructor(private fb: FormBuilder
   ,private usersService: UsersService
@@ -72,7 +90,7 @@ export class SignupComponent implements OnInit {
   , public dialog: MatDialog ) { }
 
   ngOnInit() {
-    this.getLocation()
+    // this.getLocation()
     this.initForm();
     this.getExistingUsers();
 
@@ -107,7 +125,7 @@ export class SignupComponent implements OnInit {
     return this.fb.group({
       id: [data.id],
       name: [data.name,  Validators.compose([Validators.required, Validators.minLength(5)])],
-      username: [data.username, Validators.compose([Validators.required, Validators.email, Validators.minLength(5), this.noWhitespaceValidator])],
+      username: [data.username, Validators.compose([Validators.required, Validators.email, this.noWhitespaceValidator])],
       password: [data.password, Validators.compose([Validators.required, Validators.minLength(5), this.noWhitespaceValidator])],
       currency: [data.currency]
     })
@@ -144,18 +162,18 @@ export class SignupComponent implements OnInit {
 
   }
 
-  getLocation(){
-    this.locationService.getCountry()
-    .subscribe(response => {
-      console.log('location: ', response);
-      this.locationModel = response;
-      let currentCountry: CountryModel = this.countryList.find(cl => cl.id === response.country);
-      console.log("currentCountry: ", currentCountry);
-      if(currentCountry){
-        this.signupForm.get('currency').patchValue(currentCountry.currencyCode);
-      }
-    })
-  }
+  // getLocation(){
+  //   this.locationService.getCountry()
+  //   .subscribe(response => {
+  //     console.log('location: ', response);
+  //     this.locationModel = response;
+  //     let currentCountry: CountryModel = this.countryList.find(cl => cl.id === response.country);
+  //     console.log("currentCountry: ", currentCountry);
+  //     if(currentCountry){
+  //       this.signupForm.get('currency').patchValue(currentCountry.currencyCode);
+  //     }
+  //   })
+  // }
 
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0 || control.value.indexOf(' ') > 0 ;

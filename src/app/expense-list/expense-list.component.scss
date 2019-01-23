@@ -168,12 +168,14 @@
 
 .example-handle {
   position: absolute;
-  // top: 10px;
+  top: 10pt;
   // right: 10px;
   // color: #ccc;
   // cursor: move;
   // width: 24px;
   // height: 24px;
-  width:90%;
-  height: 90%;
+  width:95%;
+  // background-color: aqua;
+  left: 30pt;
+  height: 40%;
 }
