@@ -117,10 +117,10 @@
 
     <div fxFlex="34">
       <div fxLayout="column" fxLayoutAlign="center start" class="field">
-        <label>Category</label>
+        <label>Category*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
-            <mat-select multiple formControlName="expenseCategory" id="add_category" name="add_category" class="add_category">
+            <mat-select formControlName="expenseCategory" id="add_category" name="add_category" class="add_category">
               <mat-option *ngFor="let expCat of expenseCategories" [value] = "expCat">
                 {{expCat}}
               </mat-option>
@@ -142,7 +142,7 @@
               attachment
             </mat-icon>
           </button>
-          <input #fileInput type="file" (change)="onImageChange($event)" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps,.doc,.docx," style="display: none">
+          <input #fileInput type="file" (change)="onImageChange($event)" id="add_attach" name="add_attach" class="add_attach" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps,.doc,.docx," style="display: none">
         </div>
         <div *ngIf="imagePreview">
           <!-- <img width="200px" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)" alt="Doc"> -->

@@ -145,7 +145,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
       expenseHead: [data.expenseHead, Validators.required],
       amount: [data.amount, [Validators.required, Validators.pattern(/^[.\d]+$/)]],
       currency: [data.currency, Validators.required],
-      expenseCategory: [data.expenseCategory],
+      expenseCategory: [data.expenseCategory, Validators.required],
       isRecurring: [data.isRecurring],
       details: [data.details]
     });

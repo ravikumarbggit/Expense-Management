@@ -11,7 +11,7 @@
     <!-- <div fxFlex="30">
       <mat-icon>person</mat-icon><label>{{user.name}}</label>
     </div> -->
-    <div fxFlex="10">
+    <div>
       <app-header></app-header>
     </div>
   </div>
@@ -91,13 +91,25 @@
 
     </div>
 
-    <div class="add-icon-container">
+    <div fxHide="true" fxShow.lt-md="true" class="add-icon-container">
         <button *ngIf="displayAdd()" [routerLink]="['/app-expense']" mat-fab color="accent" id="list_add_btn" name="list_add_btn" class="list_add_btn">
           <mat-icon class="action-icon">add</mat-icon>
         </button>
         <button *ngIf="displayDelete()" (click)="deleteSelected()" mat-fab color="warn" id="list_delete_btn" name="list_delete_btn" class="list_delete_btn">
             <mat-icon class="action-icon">delete</mat-icon>
         </button>    
+    </div>
+    <div fxShow="true" fxHide.lt-md="true">
+      <div fxFlex="row" fxLayoutAlign="center center">
+        <div class="add-icon-web-container">
+            <button *ngIf="displayAdd()" [routerLink]="['/app-expense']" mat-fab color="accent" id="list_add_btn" name="list_add_btn" class="list_add_btn">
+              <mat-icon class="action-icon">add</mat-icon>
+            </button>
+            <button *ngIf="displayDelete()" (click)="deleteSelected()" mat-fab color="warn" id="list_delete_btn" name="list_delete_btn" class="list_delete_btn">
+                <mat-icon class="action-icon">delete</mat-icon>
+            </button>
+        </div>
+      </div>
     </div>
     
   </mat-sidenav-content>
