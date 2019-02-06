@@ -10,13 +10,13 @@
 
     </div>
   </div>
-</mat-toolbar> -->
+</mat-toolbar> --> 
 <div class="app-background">
-  <div class="top-menu-spacer">
+  <!-- <div class="top-menu-spacer">
 
-  </div>
+  </div> -->
   <form [formGroup]="loginForm">
-    <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center start">
 
 
       <mat-card>
@@ -28,13 +28,15 @@
             </div>
           </div>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content style="margin-bottom: 0pt;">
+          <div fxLayout="column" fxLayoutAlign="center center" class="field">
+            <img  src="assets/images/perfecto-logo.png" height="35">
+            <p style="margin: 0pt; font-size: 14pt; padding-bottom: 10pt; padding-top: 10pt;">Expense Tracker</p>
+          </div>
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
-            <img  src="assets/images/perfecto-logo.png" height="45">
-            <h4>Expense Tracker</h4>
-            <label>Email</label>
+            <label style="font-size: 10pt;">Email*</label>
             <div>
-              <mat-form-field appearance="outline" color="accent">
+              <mat-form-field appearance="outline" color="accent" style="font-size: 8pt;">
                 <input matInput formControlName="username" id="login_email" name="login_email" class="login_email" autocomplete="off" autocapitalize="none">
               </mat-form-field>
 
@@ -42,9 +44,9 @@
           </div>
 
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
-            <label>password</label>
+            <label style="font-size: 10pt;">password*</label>
             <div>
-              <mat-form-field appearance="outline" color="accent">
+              <mat-form-field appearance="outline" color="accent" style="font-size: 8pt;">
                 <input type="password" formControlName="password" id="login_password" name="login_password" class="login_password" autocomplete="off" matInput (keyup.enter)="login(loginForm.value)">
               </mat-form-field>
 
@@ -52,7 +54,7 @@
           </div>
 
         </mat-card-content>
-        <mat-card-actions>
+        <mat-card-actions style="padding-top: 0pt;">
           <div fxLayout="row" fxLayoutAlign="center center">
             <button mat-button type="button" id="login_login_btn" name="login_login_btn" class="login_login_btn" [disabled]="loginForm.invalid" (click)="login(loginForm.value)">Login</button>
             <button mat-button type="button" id="login_signup_btn" name="login_signup_btn" class="login_signup_btn" [routerLink]="['/app-signup']">Signup</button>
