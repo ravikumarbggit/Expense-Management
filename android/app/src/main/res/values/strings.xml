@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Expense</string>
-    <string name="title_activity_main">Expense</string>
-    <string name="package_name">com.expense.app</string>
-    <string name="fileprovider_authority">com.expense.app.fileprovider</string>
-    <string name="custom_url_scheme">com.expense.app</string>
-</resources>
