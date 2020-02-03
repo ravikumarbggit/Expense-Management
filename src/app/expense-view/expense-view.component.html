@@ -40,10 +40,11 @@
       <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
         <div fxFlex="34">
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
-            <label>Head</label>
+            <label><b>Head</b></label>
             <div>
-              {{expense.expenseHead}}
-              
+              <p>
+                {{expense.expenseHead}}
+              </p>
             </div>
           </div>
         </div>
@@ -51,8 +52,9 @@
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
             <label>Amount</label>
             <div>
-    
-              {{expense.amount}}
+              <p>
+                {{expense.amount}}
+              </p>
             </div>
           </div>
         </div>
@@ -60,7 +62,9 @@
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
             <label>Currency</label>
             <div>
-              {{expense.currency}}
+              <p>
+                {{expense.currency}}
+              </p>
             </div>
           </div>
         </div>
@@ -69,9 +73,9 @@
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
             <label>Date</label>
             <div>
-
-              {{expense.date}}
-    
+              <p>
+                {{expense.date}}
+              </p>
             </div>
           </div>
     
@@ -86,9 +90,9 @@
             <label>Category</label>
             <div>
 
-
-              {{expense.expenseCategory}}
-    
+              <p>
+                {{expense.expenseCategory}}
+              </p>
             </div>
           </div>
         </div>
@@ -109,7 +113,9 @@
         <div fxFlex="34" class="field">
           <div fxLayout="column" fxLayoutAlign="center start" class="field">
             <label>Details</label>
-            {{expense.details}}
+            <p>
+              {{expense.details}}
+            </p>
           </div>
         </div>
     

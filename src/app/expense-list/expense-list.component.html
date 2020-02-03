@@ -2,7 +2,7 @@
   <div style="width:100%" fxShow fxHide.lt-md="true" fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex="40">
       <a [routerLink]="['/']">
-        <img src="assets/images/perfecto-logo.png" height="45">
+        <img src="assets/images/logo.png" height="45">
       </a>
     </div>
     <div fxFlex="50">
@@ -40,7 +40,7 @@
   <mat-sidenav-content>
 
     
-    <div class="form-body" style="height:100vh;">
+    <div class="form-body" >
 
       <div fxLayout="column" fxLayoutGap="10pt" fxLayoutAlign="center stretch">      
         <div *ngIf="!expenses || expenses?.length === 0">
@@ -93,20 +93,20 @@
 
     <div fxHide="true" fxShow.lt-md="true" class="add-icon-container">
         <button *ngIf="displayAdd()" [routerLink]="['/app-expense']" mat-fab color="accent" id="list_add_btn" name="list_add_btn" class="list_add_btn">
-          <mat-icon class="action-icon">add</mat-icon>
+          <mat-icon inline=true class="action-icon">add</mat-icon>
         </button>
         <button *ngIf="displayDelete()" (click)="deleteSelected()" mat-fab color="warn" id="list_delete_btn" name="list_delete_btn" class="list_delete_btn">
-            <mat-icon class="action-icon">delete</mat-icon>
+            <mat-icon inline=true class="action-icon">delete</mat-icon>
         </button>    
     </div>
     <div fxShow="true" fxHide.lt-md="true">
       <div fxFlex="row" fxLayoutAlign="center center">
         <div class="add-icon-web-container">
             <button *ngIf="displayAdd()" [routerLink]="['/app-expense']" mat-fab color="accent" id="list_add_btn" name="list_add_btn" class="list_add_btn">
-              <mat-icon class="action-icon">add</mat-icon>
+              <mat-icon inline=true class="action-icon">add</mat-icon>
             </button>
             <button *ngIf="displayDelete()" (click)="deleteSelected()" mat-fab color="warn" id="list_delete_btn" name="list_delete_btn" class="list_delete_btn">
-                <mat-icon class="action-icon">delete</mat-icon>
+                <mat-icon inline=true class="action-icon">delete</mat-icon>
             </button>
         </div>
       </div>

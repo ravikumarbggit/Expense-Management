@@ -10,7 +10,9 @@ import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from '../data-model/user.model';
 import { UsersService } from '../service/users.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-expense',
@@ -63,7 +65,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   private paramSub: Subscription;
   currentUser: User;
   imagePreview: ImagePreview;
-
+  image: SafeResourceUrl;
 
   amountTickInterval: number = 5;
   amountThumbLabel: boolean = false;
@@ -71,15 +73,16 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   minAmount: number = 0;
   maxAmount: number = 10000;
   amountSlider = new FormControl('');
+  isWeb: boolean = true;
 
   constructor(private fb: FormBuilder
     , private expenseDataService: ExpenseDataService
     , public snackBar: MatSnackBar
     , private route: ActivatedRoute
-    , private router: Router
     , private userService: UsersService
     , public sanitizer: DomSanitizer
-    , private _location: Location) { }
+    , private _location: Location
+    , private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -89,6 +92,16 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
     console.log('this.currentUser: ', this.currentUser);
 
+    this.authService.getDeviceInfo()
+    .then(deviceInfo => {
+      console.log('deviceInfo: ',deviceInfo)
+      if(deviceInfo.platform === 'web'){
+        this.isWeb = true;
+      }
+      else{
+        this.isWeb = false;
+      }
+    });
     
   }
 
@@ -283,6 +296,26 @@ export class ExpenseComponent implements OnInit, OnDestroy {
 
   deletePreviewPhoto() {
     this.imagePreview = undefined;
+  }
+
+
+  async takePicture() {
+    const { Camera } = Plugins;
+
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+      source: CameraSource.Prompt
+    });
+
+    // Example of using the Base64 return type. It's recommended to use CameraResultType.Uri
+    // instead for performance reasons when showing large, or a large amount of images.
+    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.base64Data));
+  }
+
+  deleteImage(){
+    this.image = undefined;
   }
 
 }

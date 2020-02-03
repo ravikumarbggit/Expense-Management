@@ -1,13 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 body{
-    background: rgba(155, 155, 155, 0.3);
+    // background: rgba(155, 155, 155, 0.3);
+    background-color: #82BC41;
     font-family: 'Lato', sans-serif;
-    color: #555555;
+    color: #212721;
     font-size: 14pt !important;
+    font-weight: 600 !important;
     margin: 0px;
 }
     
+.mat-card {
+    color: #212721;
+}
+
+.mat-form-field{
+    font-weight: 600 !important;
+    width: 100%;
+}
+
+// .mat-input-element{
+//     font-weight: 600;
+// }
+
 a{
     text-decoration:none;
     // color: #0086BF;
@@ -16,21 +31,26 @@ a{
 
 .mat-button {
     font-size: 14pt !important;
+    font-weight: 600 !important;
 }
 a:hover{
     // color: #82BC41;
 }
 
 label{
-    color:#94B7BB;
+    // color:#0086BF;
+    color:#212721;
     font-size: 14pt;
 }
 
 h4{
-    font-size: 22pt !important;
+    font-size: 20pt !important;
 }
 .action-icon{
     cursor: pointer;
+    // font-size: 24px !important;
+    font-size: 1.8rem !important;
+    vertical-align: top !important;
 }
 
 .top-menu{
@@ -57,19 +77,41 @@ h4{
   }
 
 .form-body{
-    top: 14%;
+    // top: 10%;
     // background-color: #f1f1f1;
-    padding-top: 60px;
+    margin-top: 30px;
+    padding-top: 20px;
     padding-left: 0px;
     padding-right: 0px;
     height: 100vh;
+    // overflow-y: scroll
 }
 
 .app-background{
     background-color: #82BC41;
-    height: 100vh;
+    min-height: 100vh;
+    max-width: 100%;
 }
 
 .full-screen-card {
     min-height: 100vh;
 }
+
+.login-form-field{
+    font-size: 10pt;
+}
+
+/* Border */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: red;
+  }
+
+// button.mat-button .mat-icon,
+// a.mat-button .mat-icon,
+// a.mat-raised-button .mat-icon,
+// a.mat-flat-button .mat-icon,
+// a.mat-stroked-button .mat-icon {
+//   vertical-align: top;
+// //   font-size: 1.25em;
+// //   margin-top: -20px;
+// }

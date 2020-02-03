@@ -1,6 +1,6 @@
 {
-  "appId": "com.expense.app",
-  "appName": "Expense",
+  "appId": "io.perfecto.expense.tracker.hybrid",
+  "appName": "Perfecto Expense Tracker Hybrid",
   "bundledWebRuntime": false,
   "webDir": "www"
 }

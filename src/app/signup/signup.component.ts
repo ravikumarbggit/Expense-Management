@@ -86,7 +86,6 @@ export class SignupComponent implements OnInit {
   ,private usersService: UsersService
   , public snackBar: MatSnackBar
   , private router: Router
-  , private locationService: LocationService
   , public dialog: MatDialog ) { }
 
   ngOnInit() {

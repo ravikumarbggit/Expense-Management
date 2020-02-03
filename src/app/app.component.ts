@@ -8,7 +8,9 @@ import { UsersService } from './service/users.service';
 import { User } from './data-model/user.model';
 import { take } from 'rxjs/operators';
 import { Expense } from './data-model/expense.model';
-
+import { Meta } from '@angular/platform-browser';
+// import {registerWebPlugin} from "@capacitor/core";
+// import { FingerPrintAuth } from 'capacitor-fingerprint-auth';
 
 // export const routerTransition = trigger('routerTransition', [
 //   transition('* <=> *', [
@@ -92,9 +94,12 @@ transition('1 => *', [
   styleUrls: ['./app.component.css'],
   animations: [routerTransition]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  constructor(private usersService: UsersService, private expenseDataService: ExpenseDataService) {
+  constructor(private usersService: UsersService
+    , private expenseDataService: ExpenseDataService
+    , private meta: Meta
+    ) {
 
     this.usersService.getJSON().subscribe(response => {
       this.usersService.pushUsers(response);
@@ -118,6 +123,11 @@ export class AppComponent {
       }
     })
 
+    // this.meta.addTag({ name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' });
+    this.meta.updateTag(
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
+      `name='viewport'`
+    );
 
   }
 
@@ -125,6 +135,10 @@ export class AppComponent {
     return outlet.activatedRouteData.state;
   }
 
+  ngOnInit(){
+
+    // registerWebPlugin(FingerPrintAuth);
+  }
 
 
 }

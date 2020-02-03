@@ -37,6 +37,7 @@ import { AboutComponent } from './about/about.component';
 import { SignupComponent } from './signup/signup.component';
 import { ExpenseItemComponent } from './expense-item/expense-item.component';
 import { ExpenseViewComponent } from './expense-view/expense-view.component';
+// import { FingerPrintAuth } from 'capacitor-fingerprint-auth';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,8 @@ import { ExpenseViewComponent } from './expense-view/expense-view.component';
     { provide: DateAdapter, useClass: DateFormat },
     AuthService,
     AuthGuard,
+    // FingerPrintAuth, 
+    // TouchId,
   ],
   entryComponents: [ConfirmationDialog, AlertDialog, ],
   bootstrap: [AppComponent]

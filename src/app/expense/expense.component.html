@@ -33,10 +33,10 @@
 <div class="form-body">
 
 <mat-card class="full-screen-card">
-
-  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
+  <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="50pt" fxLayoutGap.lt-md="0pt" style="padding-top: 10px;" >
+  <div fxLayout="row"  fxLayoutGap="20px" fxLayoutAlign="space-between start" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
     <div fxFlex="34">
-      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+      <div fxLayout="column" fxLayoutAlign="center stretch" class="field">
         <label>Head*</label>
         <div>
           <!-- <mat-form-field appearance="outline" color="accent">
@@ -56,7 +56,7 @@
       </div>
     </div>
     <div fxFlex="34">
-      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+      <div fxLayout="column" fxLayoutAlign="center stretch" class="field">
         <label>Amount*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
@@ -65,15 +65,15 @@
           </mat-form-field>
 
           <div>
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10pt">
-              <div>
+            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10pt">
+              <div fxFlex="5">
                 <label>{{minAmount | number}}</label>
               </div>
-              <div>
+              <div fxFlex="80">
                 <mat-slider style="width:100%" [max]="maxAmount" [min]="minAmount" [step]="stepAmount" [thumbLabel]="amountThumbLabel" [tickInterval]="amountTickInterval" [formControl]="amountSlider">
                 </mat-slider>
               </div>
-              <div>
+              <div fxFlex="15">
                 <label>{{maxAmount | number}}</label>
               </div>
           </div>
@@ -82,7 +82,7 @@
       </div>
     </div>
     <div fxFlex="32">
-      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+      <div fxLayout="column" fxLayoutAlign="center stretch" class="field">
         <label>Currency*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
@@ -97,7 +97,7 @@
     </div>
   
     <div fxFlex="34">
-      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+      <div fxLayout="column" fxLayoutAlign="center stretch" class="field">
         <label>Date*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
@@ -116,7 +116,7 @@
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" fxLayoutAlign.lt-md="space-between stretch" fxLayout.lt-md="column">
 
     <div fxFlex="34">
-      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+      <div fxLayout="column" fxLayoutAlign="center stretch" class="field">
         <label>Category*</label>
         <div>
           <mat-form-field appearance="outline" color="accent">
@@ -132,11 +132,11 @@
     </div>
 
     <div fxFlex="34" class="field">
-      <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="10px">
+      <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10px">
         <div>
           <label>Attachment</label>
         </div>
-        <div fxLayout="column" fxLayoutAlign="center start" class="field">
+        <div *ngIf="isWeb" fxLayout="column" fxLayoutAlign="center start" class="field">
           <!-- <button mat-raised-button type="button" (click)="fileInput.click()" color="accent" id="add_attach_btn" name="add_attach_btn" class="add_attach_btn">
             <mat-icon>
               attachment
@@ -149,26 +149,41 @@
               <!-- <mat-icon>attachment</mat-icon> -->
             <!-- </button> -->
          <!-- </label> -->
-         <input type="file"
-                id="add_attach" 
-                name="add_attach" 
-                class="add_attach"
-                accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg"
-                (change)="onImageChange($event)"
-                >
+         
+          <input type="file"
+                  id="add_attach" 
+                  name="add_attach" 
+                  class="add_attach"
+                  accept="image/*"
+                  (change)="onImageChange($event)"
+                  >
 
+          
+          <div *ngIf="imagePreview">
+            <!-- <img width="200px" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)" alt="Doc"> -->
+
+
+                <div class="img-wrap">
+                    <!-- <span class="close" (click)="deletePreviewPhoto(imagePreview.name)">&times;</span> -->
+                    <mat-icon class="close" color="warn" (click)="deletePreviewPhoto()">delete</mat-icon>
+                    <img width="200px" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)">
+                </div>
+        
+
+          </div>
         </div>
-        <div *ngIf="imagePreview">
-          <!-- <img width="200px" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)" alt="Doc"> -->
-
-
+        <div *ngIf="!isWeb" fxLayout="column" fxLayoutAlign="center start" class="field">
+            <button mat-raised-button (click)="takePicture()" ion-button color="primary">
+              <mat-icon>
+                attachment
+              </mat-icon>
+            </button>  
+            <div *ngIf="image">
               <div class="img-wrap">
-                  <!-- <span class="close" (click)="deletePreviewPhoto(imagePreview.name)">&times;</span> -->
-                  <mat-icon class="close" color="warn" (click)="deletePreviewPhoto()">delete</mat-icon>
-                  <img width="200px" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview.image)">
+                <mat-icon class="close" color="warn" (click)="deleteImage()">delete</mat-icon>
+                <img [src]="image" width="200px" />
               </div>
-      
-
+            </div>
         </div>
       </div>
 
@@ -177,9 +192,9 @@
       <mat-slide-toggle formControlName="isRecurring" id="add_recurring_toggle" name="add_recurring_toggle" class="add_recurring_toggle">Recurring</mat-slide-toggle>
     </div>
     <div fxFlex="34" class="field">
-      <div fxLayout="column" fxLayoutAlign="center start" class="field">
+      <div fxLayout="column" fxLayoutAlign="center stretch" class="field">
         <label>Details</label>
-        <mat-form-field appearance="outline" style="width:90%" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <textarea matInput formControlName="details" id="add_details" name="add_details" class="add_details"></textarea>
         </mat-form-field>
       </div>
@@ -195,7 +210,7 @@
         <button type="button" mat-raised-button   (click)="reset()" id="add_reset_btn" name="add_reset_btn" class="add_reset_btn">Reset</button>
     </div>
   </div>
-
+</div>
 </mat-card>
 
 </div>

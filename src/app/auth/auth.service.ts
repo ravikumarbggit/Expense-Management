@@ -6,7 +6,10 @@ import { AppSettings } from '../app-settings';
 import { User } from '../data-model/user.model';
 import { UsersService } from '../service/users.service';
 import { ExpenseDataService } from '../service/expense-data.service';
+import { Plugins, DeviceInfo } from '@capacitor/core';
 
+
+const { Device } = Plugins;
 
 @Injectable()
 export class AuthService {
@@ -84,7 +87,12 @@ export class AuthService {
     this.expenseDataService.pushExpenses([]);
   }
 
+  getDeviceInfo() :Promise<DeviceInfo> {
 
+    // console.log('this.platform.ANDROID: ',this.platform.ANDROID);
+
+    return Device.getInfo();
+  }
 
 
 }
